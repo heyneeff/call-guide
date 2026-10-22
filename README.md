@@ -8,7 +8,15 @@ No backend, no build step. Plain HTML/JS plus JSON scripts.
 
 ## Run it
 
-Double-click **`start.command`**. It serves this folder at
+**Online:** https://heyneeff.github.io/call-guide/ (GitHub Pages, rebuilds about a
+minute after every push to `main`). To publish script edits:
+
+```bash
+cd ~/Developer/fieldops-leadgen/call-guide
+git commit -am "Tweak solar wording" && git push
+```
+
+**Locally:** double-click **`start.command`**. It serves this folder at
 `http://localhost:8765` and opens your browser. Close the Terminal window to
 stop it.
 
