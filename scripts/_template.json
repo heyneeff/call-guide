@@ -6,6 +6,7 @@
   "vars": { "trade": "roofers", "finishLine": "finished, paid job" },
 
   "anchors": {
+    "learn": "owner_week",
     "quick": "owner_week",
     "process": "opener",
     "tools": "opener"

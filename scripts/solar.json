@@ -7,6 +7,7 @@
     "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in and how long it's been there."
   },
   "anchors": {
+    "learn": "learn_q1",
     "quick": "owner_week",
     "process": "pipeline_tracking",
     "tools": "tools_fit"
@@ -227,6 +228,18 @@
     }
   },
   "nodes": {
+    "learn_q1": {
+      "section": "Opener",
+      "question": "Question 1: how do you track a job after it's signed?",
+      "say": "First one: once a job's signed, how do you keep track of where it is, through permitting, interconnection and PTO?",
+      "why": "Whatever they say, follow with 'how's that working for you?' If they open up, hit Go deeper.",
+      "answers": [
+        { "label": "Project management software", "next": "learn_wand" },
+        { "label": "Spreadsheet / whiteboard", "next": "learn_wand", "pains": ["pipeline-spreadsheet"] },
+        { "label": "In my head / my PM's head", "next": "learn_wand", "pains": ["key-person-risk"] },
+        { "label": "Jobs get stuck and we find out late", "next": "learn_wand", "pains": ["no-pipeline-visibility"] }
+      ]
+    },
     "opener": {
       "section": "Opener",
       "question": "Permission-based intro",

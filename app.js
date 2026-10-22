@@ -26,7 +26,7 @@ const app = {
   industries: [],   // [{ id, label, file, data }]
   script: null,     // merged common + industry
   call: null,       // the live call
-  settings: { me: 'Neeff', company: '', ...store.get(KEYS.settings, {}) },
+  settings: { me: 'Neeff', company: '', mode: 'learning', ...store.get(KEYS.settings, {}) },
 };
 
 // ---------- loading ----------
@@ -141,7 +141,7 @@ function newCall() {
     industry: app.script.id,
     industryLabel: app.script.label,
     business: '', contact: '', phone: '', hook: '', notes: '', cost: '',
-    stack: [{ node: app.script.start }],
+    stack: [{ node: startNode() }],
     dismissed: [],
     mainPain: null,
     manualPains: [],
@@ -150,6 +150,8 @@ function newCall() {
   };
 }
 
+// Learning mode swaps the pitch opener for the ask-for-advice opener (common.json).
+const startNode = () => (app.settings.mode === 'learning' && app.script.nodes.learn_opener ? 'learn_opener' : app.script.start);
 const step = () => app.call.stack[app.call.stack.length - 1];
 const currentNode = () => app.script.nodes[step().node];
 const closeId = () => resolve(app.script, '@close') || 'close';
@@ -267,7 +269,7 @@ function back() {
 }
 
 function restart() {
-  app.call.stack = [{ node: app.script.start }];
+  app.call.stack = [{ node: startNode() }];
   app.call.dismissed = [];
   app.call.outcome = null;
   save();
@@ -355,7 +357,7 @@ function renderSections() {
   const visited = new Set(app.call.stack.map((s) => app.script.nodes[s.node]?.section));
   $('#sections').replaceChildren(...app.script.sections.map((sec) => el('button', {
     class: [sec.label === n?.section && 'current', visited.has(sec.label) && 'visited'].filter(Boolean).join(' '),
-    onclick: () => go(sec.start, { label: `Jumped to ${sec.label}` }),
+    onclick: () => go(sec.start === app.script.start ? startNode() : sec.start, { label: `Jumped to ${sec.label}` }),
   }, sec.label)));
 }
 
@@ -588,6 +590,7 @@ function start() {
   app.call = saved && saved.industry === app.script.id ? saved : newCall();
 
   fillCallFields();
+  $('#mode').value = app.settings.mode;
   $('#setMe').value = app.settings.me || '';
   $('#setCompany').value = app.settings.company || '';
   renderObjBar();
@@ -616,11 +619,19 @@ function wire() {
     });
   }
 
+  $('#mode').addEventListener('change', (e) => {
+    app.settings.mode = e.target.value;
+    store.set(KEYS.settings, app.settings);
+    if (app.call.stack.length === 1) app.call.stack = [{ node: startNode() }];
+    save();
+    render();
+  });
+
   $('#industry').addEventListener('change', (e) => {
     selectIndustry(e.target.value);
     app.call.industry = app.script.id;
     app.call.industryLabel = app.script.label;
-    app.call.stack = [{ node: app.script.start }];
+    app.call.stack = [{ node: startNode() }];
     app.call.dismissed = [];
     renderObjBar();
     save();

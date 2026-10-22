@@ -9,6 +9,7 @@
   },
 
   "anchors": {
+    "learn": "learn_q1",
     "quick": "owner_week",
     "process": "pipeline_tracking",
     "tools": "tools_fit"
@@ -75,6 +76,20 @@
   },
 
   "nodes": {
+
+    "learn_q1": {
+      "section": "Opener",
+      "question": "Question 1: how do you track money still owed?",
+      "say": "First one: when a job's waiting on insurance, a supplement or a depreciation check, how do you keep track of it?",
+      "why": "Whatever they say, follow with 'how's that working for you?' If they open up, hit Go deeper.",
+      "answers": [
+        { "label": "Roofing software, it's tight", "next": "learn_wand" },
+        { "label": "Spreadsheet", "next": "learn_wand", "pains": ["payments-spreadsheet"] },
+        { "label": "In my head / my foreman's head", "next": "learn_wand", "pains": ["key-person-risk"] },
+        { "label": "Honestly, some slip through", "next": "learn_wand", "pains": ["uncollected-depreciation"] },
+        { "label": "Mostly retail, not much insurance", "next": "learn_wand" }
+      ]
+    },
 
     "opener": {
       "section": "Opener",

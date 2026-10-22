@@ -4,6 +4,94 @@
   "closeNudgeAt": 2,
 
   "nodes": {
+    "learn_opener": {
+      "section": "Opener",
+      "question": "Learning opener: ask for advice, not a meeting",
+      "say": [
+        "Hi, is this {{contact|the owner}}?",
+        "My name's {{me}}. I'm starting a business helping {{trade}} with the office side of things, and I'm calling a few owners around Denver to learn how they actually run it.",
+        "Could I ask you two quick questions?"
+      ],
+      "why": "Every word is true, and people like helping someone who's learning. You're not pitching. You're collecting real stories, and the good conversations turn into shadow visits.",
+      "answers": [
+        { "label": "Sure", "next": "@learn" },
+        { "label": "\"Are you selling something?\"", "next": "learn_honest" },
+        { "label": "Wrong person: get a name and time", "next": "close_callback" },
+        { "label": "Voicemail: hang up, try again in 2 days", "next": "close_callback" },
+        { "label": "Bad time", "objection": "too_busy" },
+        { "label": "Not interested", "objection": "not_interested" }
+      ]
+    },
+
+    "learn_honest": {
+      "section": "Opener",
+      "question": "\"Are you selling something?\": tell the truth",
+      "say": [
+        "Fair question. Eventually, yes. I help companies fix this stuff, for a fee.",
+        "But today I'm mostly trying to learn how {{trade}} actually run things. If something you tell me sounds like a fit, I'll say so straight, and you can say no.",
+        "Fair? Two questions."
+      ],
+      "why": "Being straight about it builds more trust than dodging. Most people relax once you've admitted it.",
+      "answers": [
+        { "label": "OK, go ahead", "next": "@learn" },
+        { "label": "No thanks", "next": "close_exit" }
+      ]
+    },
+
+    "learn_wand": {
+      "section": "Opener",
+      "question": "Question 2: the magic wand",
+      "say": "Second one: if you could wave a wand and fix one thing about how the office side runs, what would it be?",
+      "why": "Let them talk. If they go on about it, open Go deeper. Write their exact words in Notes.",
+      "answers": [
+        { "label": "Knowing where every job stands", "next": "learn_bridge", "wish": "knowing where every job stands" },
+        { "label": "Getting paid faster", "next": "learn_bridge", "wish": "getting paid faster" },
+        { "label": "Fewer customer calls", "next": "learn_bridge", "wish": "fewer customer calls" },
+        { "label": "Scheduling", "next": "learn_bridge", "wish": "scheduling" },
+        { "label": "Paperwork / admin", "next": "learn_bridge", "wish": "less paperwork" },
+        { "label": "Lead and quote follow-up", "next": "learn_bridge", "wish": "lead and quote follow-up" },
+        { "label": "Nothing, it runs fine", "next": "learn_bridge" }
+      ]
+    },
+
+    "learn_bridge": {
+      "section": "Close",
+      "question": "Thank them, then ask to see it in person",
+      "say": [
+        "This is really helpful, thank you.",
+        "Honestly, the best way for me to learn is to see it. Could I come sit with you or your office for a morning and just watch how a job moves? I'll bring a notebook, not a pitch.",
+        "If I see something worth fixing, I'll tell you once, and you decide if you ever want help with it."
+      ],
+      "why": "A shadow visit is an easy yes, and it's the best discovery you'll get. If they're clearly in pain and asking for help, skip ahead to the audit.",
+      "answers": [
+        { "label": "Yes to a shadow visit", "next": "close_shadow", "minPains": 0 },
+        { "label": "Real pain, wants help now: offer the audit", "next": "audit_ask", "minPains": 3 },
+        { "label": "No visit, but happy to stay in touch", "next": "close_callback" },
+        { "label": "Not a fit", "next": "close_exit" }
+      ]
+    },
+
+    "close_shadow": {
+      "section": "Close",
+      "type": "end",
+      "outcome": "shadow",
+      "outcomeLabel": "Shadow visit booked",
+      "question": "Book the shadow visit",
+      "say": [
+        "Great. What morning works best, a busy one ideally?",
+        "Who should I sit with, you or whoever runs the office?",
+        "And what's the one thing you'd want me to make sure I see?"
+      ],
+      "why": "Ask for a busy morning, because a quiet day teaches you nothing. Watch one real job move from start to finish. You aren't selling at the visit. If something's clearly broken, mention it once at the end and offer the audit.",
+      "checklist": [
+        "Lock the day and time, and send an invite",
+        "Get the address and who you'll sit with",
+        "Ask what they want you to make sure to see",
+        "Afterwards, send a short thank-you with the one thing you noticed"
+      ],
+      "capture": { "label": "Visit date & time", "type": "datetime-local" }
+    },
+
     "close": {
       "section": "Close",
       "question": "Bridge: summarize in their words, then confirm",
@@ -57,6 +145,7 @@
       "answers": [
         { "label": "OK, book the audit", "next": "close_audit" },
         { "label": "Take the 15-minute walkthrough", "next": "close_callback" },
+        { "label": "Offer a free shadow visit instead", "next": "close_shadow" },
         { "label": "Still no", "next": "close_exit" }
       ]
     },
@@ -230,6 +319,20 @@
         { "label": "They named something", "next": "resume" },
         { "label": "Ask what eats their week", "next": "@quick" },
         { "label": "Really fine, polite exit", "next": "close_exit" }
+      ]
+    },
+    "wont_use": {
+      "label": "My guys won't use it",
+      "say": [
+        "Totally, and honestly most crews won't. That's why I don't build anything that needs your guys doing data entry.",
+        "The field keeps doing what they already do: talk, text, take photos. The office captures it, and the system does the rest.",
+        "Right now, who's the one person who knows where every job stands?"
+      ],
+      "why": "This is often the real objection behind 'we tried software'. Agree with it. Your rule is that the foreman is where the information comes from, not the person typing it in.",
+      "paths": [
+        { "label": "Back to where we were", "next": "resume" },
+        { "label": "Ask how jobs move through", "next": "@process" },
+        { "label": "Go to close", "next": "close" }
       ]
     },
     "have_software": {
