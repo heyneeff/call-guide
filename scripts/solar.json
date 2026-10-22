@@ -3,6 +3,7 @@
   "vars": {
     "trade": "solar installers",
     "finishLine": "live system with PTO",
+    "proof": "I'm doing exactly this right now for a solar and electrical contractor in Arizona.",
     "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in and how long it's been there."
   },
   "anchors": {
@@ -268,7 +269,7 @@
       "say": [
         "The reason I'm calling: I work with {{trade}} around Denver on the operations side, everything between a signed contract and PTO.",
         "I noticed {{hook}}.",
-        "The most common thing I see with installers is that jobs move but the status doesn't. It lives in a spreadsheet or one person's head, and customers end up calling to ask where their install is.",
+        "Something a lot of installers deal with: jobs move but the status doesn't. It lives in a spreadsheet or one person's head, and customers end up calling to ask where their install is.",
         "Is that something you run into, or do you have that pretty buttoned up?"
       ],
       "why": "State the reason in one breath, name a problem they'll recognize, and end on a question they can answer either way. Don't ask 'can I ask you some questions'. Ask about the problem.",

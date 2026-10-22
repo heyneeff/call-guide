@@ -1,0 +1,444 @@
+{
+  "start": "opener",
+
+  "vars": {
+    "trade": "roofers",
+    "finishLine": "paid-in-full roof",
+    "proof": "I'm doing this right now for a contractor in Arizona. Same problem: the work moves, but the status and the money don't.",
+    "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in, how long it's been there, and what money is still owed on it."
+  },
+
+  "anchors": {
+    "quick": "owner_week",
+    "process": "pipeline_tracking",
+    "tools": "tools_fit"
+  },
+
+  "sections": [
+    { "label": "Opener", "start": "opener" },
+    { "label": "Jobs & claims", "start": "pipeline_tracking" },
+    { "label": "Money owed", "start": "money_collect" },
+    { "label": "Customer comms", "start": "comms_updates" },
+    { "label": "Crews & weather", "start": "crew_scheduling" },
+    { "label": "Tools", "start": "tools_current" },
+    { "label": "Owner pain", "start": "owner_week" },
+    { "label": "Lead flow", "start": "lead_source" },
+    { "label": "Estimates", "start": "sales_proposal" },
+    { "label": "Close", "start": "close" }
+  ],
+
+  "painTags": {
+    "lead-cost":              { "label": "Paying for shared vendor leads" },
+    "no-lead-tracking":       { "label": "Leads not tracked anywhere central", "tip": "put every new lead in one shared list with a next step and a date, and review it for 10 minutes every Monday." },
+    "rep-owned-leads":        { "label": "Leads live in reps' phones", "tip": "put every new lead in one shared list with a next step and a date, and review it for 10 minutes every Monday." },
+    "storm-lead-overload":    { "label": "Storm leads pile up faster than you can work them", "tip": "after a storm, sort every lead into today / this week / later on day one, and call the today pile before you knock another door." },
+    "slow-lead-response":     { "label": "Slow speed-to-lead", "tip": "set up an instant auto-text to every new lead saying you'll call within the hour, and make same-hour callbacks a rule." },
+    "slow-estimates":         { "label": "Estimates take days to get out", "tip": "order the aerial measurement report the moment the inspection is booked, so the numbers are ready when you leave the roof." },
+    "no-estimate-followup":   { "label": "Unsigned estimates go cold", "tip": "follow up every unsigned estimate on day 2, day 5 and day 10. Even a calendar reminder for each one wins deals back." },
+    "inconsistent-followup":  { "label": "Follow-up depends on the rep", "tip": "follow up every unsigned estimate on day 2, day 5 and day 10. Even a calendar reminder for each one wins deals back." },
+    "low-close-rate":         { "label": "Low close rate" },
+    "no-sales-metrics":       { "label": "Close rate not tracked" },
+    "pipeline-spreadsheet":   { "label": "Jobs tracked on a spreadsheet or whiteboard", "tip": "add a stage and a days-in-stage column to your job list and sort by days-in-stage every Monday. The stuck jobs jump right out." },
+    "key-person-risk":        { "label": "Job status lives in one person's head", "tip": "add a stage and a days-in-stage column to your job list and sort by days-in-stage every Monday. The stuck jobs jump right out." },
+    "fragmented-tools":       { "label": "Job status split across tools", "tip": "pick one place where every job's stage lives, and update it before you text anyone about the job." },
+    "insurance-delays":       { "label": "Jobs stuck waiting on insurance / adjusters", "tip": "log the date of every claim and adjuster meeting, and set a follow-up reminder every 5 business days until approval." },
+    "unfiled-supplements":    { "label": "Supplements not filed or not chased", "tip": "check every approved scope against what you actually installed before the final invoice, and file the supplement that same week." },
+    "material-delays":        { "label": "Waiting on material deliveries", "tip": "confirm the material drop with the supplier 48 hours out, and don't lock the crew until it's confirmed." },
+    "weather-backlog":        { "label": "Weather reschedules snowball", "tip": "keep a ranked 'next up if it's dry' list, so a rain day reshuffles in five minutes instead of an afternoon." },
+    "no-pipeline-visibility": { "label": "No clear count of stalled jobs", "tip": "add a stage and a days-in-stage column to your job list and sort by days-in-stage every Monday. The stuck jobs jump right out." },
+    "delayed-cash":           { "label": "Stalled jobs delay cash flow", "tip": "add a money-still-owed column to every job and review it every Friday." },
+    "uncollected-depreciation": { "label": "Depreciation checks left uncollected", "tip": "send the completion paperwork to the carrier the day the roof is done, and keep a list of every job with depreciation still owed." },
+    "mortgage-checks":        { "label": "Checks stuck with mortgage companies", "tip": "keep a list of which mortgage companies hold each check, what they need to release it, and when you last called." },
+    "deductible-chasing":     { "label": "Chasing deductibles / final invoices", "tip": "collect the deductible at the start of the job, not the end, and put the final-payment date in writing when they sign." },
+    "payments-spreadsheet":   { "label": "Money owed tracked in a spreadsheet", "tip": "add a money-still-owed column to every job and review it every Friday." },
+    "manual-status-updates":  { "label": "Status updates done by hand", "tip": "text every homeowner when their job changes stage. Even a template you send by hand cuts most of the 'when's my roof' calls." },
+    "reactive-comms":         { "label": "Homeowners have to call for updates", "tip": "text every homeowner when their job changes stage. Even a template you send by hand cuts most of the 'when's my roof' calls." },
+    "rep-as-support":         { "label": "Sales reps stuck doing customer support", "tip": "text every homeowner when their job changes stage, so the rep isn't the only one who knows." },
+    "whens-my-roof":          { "label": "Constant \"when's my roof getting done?\" calls", "tip": "text every homeowner when their job changes stage. Even a template you send by hand cuts most of the 'when's my roof' calls." },
+    "bad-reviews":            { "label": "Delays hurting reviews / cancellations", "tip": "text every homeowner when their job changes stage. Silence is what turns into a bad review." },
+    "manual-scheduling":      { "label": "Scheduling on whiteboard / group text", "tip": "put every crew and every job on one shared calendar that everyone can see, even if it's just a Google Calendar." },
+    "owner-scheduling":       { "label": "Owner is the scheduling bottleneck", "tip": "write down how you decide which crew gets which job, then hand the easy 80% to the office." },
+    "sub-coordination":       { "label": "Coordinating subcontracted crews", "tip": "send every sub the same job sheet (address, materials, photos, special notes) the day before, every time." },
+    "wasted-trips":           { "label": "Wasted trips / crew shows up and can't start", "tip": "do a ready-check call 48 hours before every job: materials dropped, dumpster set, homeowner confirmed." },
+    "double-bookings":        { "label": "Double-booked crews", "tip": "put every crew and every job on one shared calendar that everyone can see." },
+    "manual-commissions":     { "label": "Commissions calculated by hand", "tip": "write the commission rules on one page and send each rep a per-job statement when the job is paid in full." },
+    "commission-disputes":    { "label": "Commission disputes with reps", "tip": "write the commission rules on one page and send each rep a per-job statement when the job is paid in full." },
+    "spreadsheet-ops":        { "label": "Business runs on spreadsheets" },
+    "photos-only":            { "label": "Photo app, but no job management" },
+    "generic-fsm":            { "label": "Generic field-service tool, not built for roofing" },
+    "no-system":              { "label": "No real system" },
+    "double-entry":           { "label": "Re-typing data between tools", "tip": "pick one system as the source of truth for customer info, and enter it there first, every time." },
+    "unused-software":        { "label": "Paying for software nobody uses" },
+    "owner-firefighting":     { "label": "Owner stuck firefighting job status" },
+    "owner-is-sales":         { "label": "Owner still carrying sales" },
+    "owner-admin":            { "label": "Owner buried in admin / insurance paperwork" }
+  },
+
+  "nodes": {
+
+    "opener": {
+      "section": "Opener",
+      "question": "Permission-based intro",
+      "say": [
+        "Hi, is this {{contact|the owner}}?",
+        "Hey, this is {{me}}. I'll be quick, and this is a cold call, so feel free to hang up on me in 30 seconds.",
+        "Mind if I take 30 seconds to tell you why I called, and you tell me if it's worth talking?"
+      ],
+      "why": "Saying it's a cold call and asking permission lowers their guard. They get to say yes.",
+      "answers": [
+        { "label": "Sure, go ahead", "next": "opener_pitch" },
+        { "label": "Who is this? What's it about?", "next": "opener_pitch" },
+        { "label": "Wrong person / gatekeeper", "next": "opener_gatekeeper" },
+        { "label": "Got voicemail", "next": "opener_voicemail" },
+        { "label": "Bad time", "objection": "too_busy" },
+        { "label": "Not interested", "objection": "not_interested" }
+      ]
+    },
+
+    "opener_pitch": {
+      "section": "Opener",
+      "question": "Reason for the call, ending in a problem question",
+      "say": [
+        "The reason I'm calling: I work with {{trade}} around Denver on the operations side, from the signed contract to the last check.",
+        "I noticed {{hook}}.",
+        "Something a lot of insurance roofers deal with is money sitting on the table: depreciation checks nobody chased, supplements that never got filed, final invoices that drag on because the job status lives in someone's head.",
+        "Is that something you run into, or do you have that pretty buttoned up?"
+      ],
+      "why": "State the reason in one breath, name a problem they'll recognize, and end on a question they can answer either way. Uncollected money is the sharpest pain in insurance roofing. Lead with it.",
+      "answers": [
+        { "label": "\"Yeah, that's us\"", "next": "money_collect" },
+        { "label": "\"Sometimes / kind of\"", "next": "pipeline_tracking" },
+        { "label": "\"We're pretty buttoned up\"", "next": "opener_buttoned" },
+        { "label": "\"Make it quick\"", "next": "owner_week" },
+        { "label": "\"Is this software?\"", "objection": "have_software" },
+        { "label": "\"How much is it?\"", "objection": "how_much" }
+      ]
+    },
+
+    "opener_buttoned": {
+      "section": "Opener",
+      "question": "\"We're buttoned up\": check the front end",
+      "say": [
+        "Good to hear, that's rare.",
+        "Shops that have production dialed in usually still lose deals on the front end, especially after a storm, when leads pile up and estimates don't get a follow-up.",
+        "How's that side for you?"
+      ],
+      "why": "'Buttoned up' on one side usually means the problem is somewhere else. Check the other half of the business before you move on.",
+      "answers": [
+        { "label": "Leads get messy after storms", "next": "lead_source" },
+        { "label": "Estimate follow-up is messy", "next": "sales_followup" },
+        { "label": "Both are fine", "objection": "doing_fine" }
+      ]
+    },
+
+    "opener_gatekeeper": {
+      "section": "Opener",
+      "question": "Find the right person",
+      "say": [
+        "No worries. I'm trying to reach whoever handles how jobs and scheduling work there. Is that the owner or someone else?",
+        "When's the best time to catch them?"
+      ],
+      "why": "Get a name and a time. Write both in Notes.",
+      "answers": [
+        { "label": "Got a name and a time, log a callback", "next": "close_callback" },
+        { "label": "They're putting me through", "next": "opener" },
+        { "label": "Brush-off", "next": "close_exit" }
+      ]
+    },
+
+    "opener_voicemail": {
+      "section": "Opener",
+      "question": "Voicemail (under 20 seconds)",
+      "say": [
+        "Hi {{contact|there}}, {{me}} here. I help {{trade}} in Denver collect the money that slips through on insurance jobs: depreciation, supplements, final invoices.",
+        "I had one specific idea for {{business|your company}}. I'm at [your number]. Again, [your number]. Thanks."
+      ],
+      "why": "Follow up in 2 business days. Try 3 times max before moving on.",
+      "answers": [
+        { "label": "Left it, log a follow-up in 2 days", "next": "close_callback" }
+      ]
+    },
+
+    "pipeline_tracking": {
+      "section": "Jobs & claims",
+      "question": "How do you track a job from signed to paid?",
+      "say": "Once a homeowner signs, there's the claim, the adjuster, approval, materials, the install, and getting paid. How do you keep track of where every job is?",
+      "why": "This is the core of the audit. When the work moves but the status doesn't, money gets left behind.",
+      "answers": [
+        { "label": "Roofing software (AccuLynx, JobNimbus…)", "next": "pipeline_stuck" },
+        { "label": "Spreadsheet / whiteboard", "next": "pipeline_stuck", "pains": ["pipeline-spreadsheet"] },
+        { "label": "Office manager keeps it in their head", "next": "pipeline_stuck", "pains": ["key-person-risk"] },
+        { "label": "A mix of tools", "next": "pipeline_stuck", "pains": ["fragmented-tools"] }
+      ]
+    },
+
+    "pipeline_stuck": {
+      "section": "Jobs & claims",
+      "question": "Where do jobs sit the longest?",
+      "say": "Out of all those steps, where do jobs tend to sit the longest?",
+      "why": "Every stalled week pushes back the final check. Find out which step stalls and you know where to start.",
+      "answers": [
+        { "label": "Insurance approval / adjuster", "next": "pipeline_count", "pains": ["insurance-delays"] },
+        { "label": "Supplements", "next": "pipeline_count", "pains": ["unfiled-supplements"] },
+        { "label": "Material delivery", "next": "pipeline_count", "pains": ["material-delays"] },
+        { "label": "Weather / crew availability", "next": "pipeline_count", "pains": ["weather-backlog"] },
+        { "label": "Final payment / depreciation", "next": "pipeline_count", "pains": ["uncollected-depreciation"] },
+        { "label": "Things move pretty smoothly", "next": "pipeline_count" }
+      ]
+    },
+
+    "pipeline_count": {
+      "section": "Jobs & claims",
+      "question": "How many jobs are stalled right now?",
+      "say": "If I asked you right now how many jobs are open, and how many are stalled, could you tell me?",
+      "why": "Not knowing this number off the top of their head is the 'owner dashboard' problem.",
+      "answers": [
+        { "label": "Yes, exactly", "next": "pipeline_impact" },
+        { "label": "Rough idea", "next": "pipeline_impact" },
+        { "label": "No idea", "next": "pipeline_impact", "pains": ["no-pipeline-visibility"] }
+      ]
+    },
+
+    "pipeline_impact": {
+      "section": "Jobs & claims",
+      "question": "What does a stalled job cost you?",
+      "say": "When a job sits stuck for a few extra weeks, what does that do on your end?",
+      "why": "This is the implication question: it turns a process problem into money and stress. If they light up, open Go deeper and get a number.",
+      "answers": [
+        { "label": "Cash flow: the check waits", "next": "money_collect", "pains": ["delayed-cash"] },
+        { "label": "Homeowners get upset / cancel", "next": "money_collect", "pains": ["bad-reviews"] },
+        { "label": "I end up chasing it myself", "next": "money_collect", "pains": ["owner-firefighting"] },
+        { "label": "Not a big deal", "next": "money_collect" }
+      ]
+    },
+
+    "money_collect": {
+      "section": "Money owed",
+      "question": "How do you track money still owed on each job?",
+      "say": "How do you keep track of what's still owed on each job: deductibles, depreciation, supplements, the final invoice?",
+      "why": "This is where roofers leave the most money behind, and nobody notices because nothing went 'wrong'. If they hesitate, go deeper.",
+      "answers": [
+        { "label": "Tracked in our software, it's tight", "next": "money_leak" },
+        { "label": "Spreadsheet", "next": "money_leak", "pains": ["payments-spreadsheet"] },
+        { "label": "Depreciation checks slip through", "next": "money_leak", "pains": ["uncollected-depreciation"] },
+        { "label": "Supplements don't get filed / chased", "next": "money_leak", "pains": ["unfiled-supplements"] },
+        { "label": "Mortgage companies sit on checks", "next": "money_leak", "pains": ["mortgage-checks"] },
+        { "label": "Chasing deductibles / final payment", "next": "money_leak", "pains": ["deductible-chasing"] }
+      ]
+    },
+
+    "money_leak": {
+      "section": "Money owed",
+      "question": "How much is out there right now?",
+      "say": "If you added up every depreciation check, supplement and final payment still out there right now, do you know roughly what that number is?",
+      "why": "If they know it, write it in Go deeper. That's their cost. If they don't, not knowing is the pain.",
+      "answers": [
+        { "label": "Knows the number", "next": "money_commissions" },
+        { "label": "Ballpark guess", "next": "money_commissions" },
+        { "label": "No idea", "next": "money_commissions", "pains": ["no-pipeline-visibility"] }
+      ]
+    },
+
+    "money_commissions": {
+      "section": "Money owed",
+      "question": "How are rep commissions handled?",
+      "say": "And sales rep commissions: how do those get calculated and paid out?",
+      "why": "Commission disputes take up the owner's time and drive good reps away, and storm reps leave fast.",
+      "answers": [
+        { "label": "Automated / clear", "next": "comms_updates" },
+        { "label": "Spreadsheet, by hand", "next": "comms_updates", "pains": ["manual-commissions"] },
+        { "label": "Disputes with reps", "next": "comms_updates", "pains": ["commission-disputes"] },
+        { "label": "No reps / owner sells", "next": "comms_updates", "pains": ["owner-is-sales"] }
+      ]
+    },
+
+    "comms_updates": {
+      "section": "Customer comms",
+      "question": "How do homeowners get status updates?",
+      "say": "While all that's happening, how does the homeowner find out where their job is at, especially while they're waiting on insurance?",
+      "why": "Homeowners waiting on insurance feel stuck. If they hear nothing, they call, leave bad reviews, or sign with the next guy who knocks.",
+      "answers": [
+        { "label": "Automated updates / portal", "next": "comms_calls" },
+        { "label": "Office calls or texts them", "next": "comms_calls", "pains": ["manual-status-updates"] },
+        { "label": "They call us", "next": "comms_calls", "pains": ["reactive-comms"] },
+        { "label": "Sales rep handles it", "next": "comms_calls", "pains": ["rep-as-support"] }
+      ]
+    },
+
+    "comms_calls": {
+      "section": "Customer comms",
+      "question": "How many \"when's my roof getting done?\" calls a week?",
+      "say": "Roughly how many \"when's my roof getting done?\" calls or texts do you get in a week?",
+      "why": "Each one is someone stopping what they're doing to look up a job's status by hand.",
+      "answers": [
+        { "label": "Barely any", "next": "crew_scheduling" },
+        { "label": "A handful", "next": "crew_scheduling" },
+        { "label": "Constantly / 10+", "next": "crew_scheduling", "pains": ["whens-my-roof"] },
+        { "label": "It's hurting reviews / cancellations", "next": "crew_scheduling", "pains": ["whens-my-roof", "bad-reviews"] }
+      ]
+    },
+
+    "crew_scheduling": {
+      "section": "Crews & weather",
+      "question": "How do jobs get on the calendar?",
+      "say": "How do jobs get scheduled, and what happens to the schedule when the weather turns?",
+      "why": "In Colorado the weather reshuffles the schedule every week. If the owner is the only one who can rebuild it, the owner is the bottleneck.",
+      "answers": [
+        { "label": "Scheduling software / shared calendar", "next": "crew_problems" },
+        { "label": "Whiteboard / group text", "next": "crew_problems", "pains": ["manual-scheduling"] },
+        { "label": "Owner does it by phone", "next": "crew_problems", "pains": ["owner-scheduling"] },
+        { "label": "Subcontracted crews", "next": "crew_problems", "pains": ["sub-coordination"] },
+        { "label": "Weather reschedules are a mess", "next": "crew_problems", "pains": ["weather-backlog"] }
+      ]
+    },
+
+    "crew_problems": {
+      "section": "Crews & weather",
+      "question": "Wasted trips or double-bookings?",
+      "say": "In the last month, any wasted trips? A crew shows up and the materials, the dumpster or the homeowner isn't ready?",
+      "why": "A wasted trip costs a crew-day. Owners remember these, so ask for a specific story.",
+      "answers": [
+        { "label": "No, pretty clean", "next": "tools_current" },
+        { "label": "A few", "next": "tools_current", "pains": ["wasted-trips"] },
+        { "label": "Regularly", "next": "tools_current", "pains": ["wasted-trips", "double-bookings"] },
+        { "label": "Materials not dropped on time", "next": "tools_current", "pains": ["material-delays"] }
+      ]
+    },
+
+    "tools_current": {
+      "section": "Tools",
+      "question": "What software runs the business today?",
+      "say": "What are you using to run all this today, software-wise?",
+      "why": "Write the exact tool names in Notes. You'll need them for the audit and the build.",
+      "answers": [
+        { "label": "Spreadsheets, mostly", "next": "tools_fit", "pains": ["spreadsheet-ops"] },
+        { "label": "AccuLynx / JobNimbus / Roofr", "next": "tools_fit" },
+        { "label": "CompanyCam + spreadsheets", "next": "tools_fit", "pains": ["photos-only"] },
+        { "label": "Jobber / Housecall Pro", "next": "tools_fit", "pains": ["generic-fsm"] },
+        { "label": "A CRM (HubSpot, GHL…)", "next": "tools_fit" },
+        { "label": "Nothing really", "next": "owner_week", "pains": ["no-system"] }
+      ]
+    },
+
+    "tools_fit": {
+      "section": "Tools",
+      "question": "Do the tools talk to each other?",
+      "say": "Do those tools talk to each other, or is someone re-typing the same info from one into another?",
+      "why": "Re-typing data between tools is a quick fix that's easy to show results on.",
+      "answers": [
+        { "label": "Connected, it works", "next": "owner_week" },
+        { "label": "Some double entry", "next": "owner_week", "pains": ["double-entry"] },
+        { "label": "Lots of re-typing", "next": "owner_week", "pains": ["double-entry"] },
+        { "label": "Paying for stuff we don't use", "next": "owner_week", "pains": ["unused-software"] }
+      ]
+    },
+
+    "owner_week": {
+      "section": "Owner pain",
+      "question": "What eats most of your week?",
+      "say": "Last one, the big one: what eats most of your week?",
+      "why": "This is the pain they feel personally. Write down their exact words, because you'll repeat them in the close.",
+      "answers": [
+        { "label": "Chasing job status / putting out fires", "next": "owner_one_thing", "pains": ["owner-firefighting"] },
+        { "label": "Selling / inspections", "next": "owner_one_thing", "pains": ["owner-is-sales"] },
+        { "label": "Insurance paperwork / admin", "next": "owner_one_thing", "pains": ["owner-admin"] },
+        { "label": "Managing crews / scheduling", "next": "owner_one_thing", "pains": ["owner-scheduling"] },
+        { "label": "Homeowner calls", "next": "owner_one_thing", "pains": ["whens-my-roof"] }
+      ]
+    },
+
+    "owner_one_thing": {
+      "section": "Owner pain",
+      "question": "If one thing ran itself, what would you pick?",
+      "say": "If one thing in the business just ran itself, what would you pick?",
+      "why": "Their answer is what you sell the audit on. It shows up at the top of the pain summary.",
+      "answers": [
+        { "label": "Collecting what we're owed", "next": "close", "wish": "collecting what you're owed" },
+        { "label": "Job status / tracking", "next": "close", "wish": "job status tracking" },
+        { "label": "Lead / estimate follow-up", "next": "close", "wish": "lead and estimate follow-up" },
+        { "label": "Homeowner updates", "next": "close", "wish": "homeowner updates" },
+        { "label": "Scheduling", "next": "close", "wish": "scheduling" },
+        { "label": "Something else (note it)", "next": "close" }
+      ]
+    },
+
+    "lead_source": {
+      "section": "Lead flow",
+      "question": "Where do most of your leads come from?",
+      "say": "Where do most of your new jobs come from right now: storm canvassing, referrals, Google, lead services?",
+      "why": "After a hailstorm every roofer in town is calling the same homeowners. Whoever follows up first and stays organized wins.",
+      "answers": [
+        { "label": "Storm canvassing / door-knocking", "next": "lead_tracking" },
+        { "label": "Referrals / insurance agents", "next": "lead_tracking" },
+        { "label": "Google / website", "next": "lead_tracking" },
+        { "label": "Angi / HomeAdvisor / lead vendors", "next": "lead_tracking", "pains": ["lead-cost"] },
+        { "label": "Mix of everything", "next": "lead_tracking" }
+      ]
+    },
+
+    "lead_tracking": {
+      "section": "Lead flow",
+      "question": "How are leads tracked, especially after a storm?",
+      "say": "When a storm hits and the leads pour in, where do they all go? How do you keep track?",
+      "why": "Storm leads are perishable. If they live in reps' phones, you can't see what's falling through, and they leave when the rep leaves.",
+      "answers": [
+        { "label": "A CRM / roofing software", "next": "lead_speed" },
+        { "label": "Spreadsheet", "next": "lead_speed", "pains": ["no-lead-tracking"] },
+        { "label": "Each rep tracks their own", "next": "lead_speed", "pains": ["rep-owned-leads"] },
+        { "label": "Honestly, they pile up", "next": "lead_speed", "pains": ["storm-lead-overload"] }
+      ]
+    },
+
+    "lead_speed": {
+      "section": "Lead flow",
+      "question": "How fast does a new lead get a call back?",
+      "say": "And when a new lead comes in, how fast does someone usually get back to them?",
+      "why": "Leads called back within minutes convert far better than next-day callbacks. This is often the cheapest fix there is.",
+      "answers": [
+        { "label": "Within minutes / an hour", "next": "sales_proposal" },
+        { "label": "Same day", "next": "sales_proposal" },
+        { "label": "Next day or later", "next": "sales_proposal", "pains": ["slow-lead-response"] },
+        { "label": "Honestly not sure", "next": "sales_proposal", "pains": ["slow-lead-response"] }
+      ]
+    },
+
+    "sales_proposal": {
+      "section": "Estimates",
+      "question": "How do estimates get built?",
+      "say": "After an inspection, how does the estimate get put together, and how long does that usually take?",
+      "why": "The homeowner is getting three bids. A slow estimate loses to a fast one.",
+      "answers": [
+        { "label": "Aerial report, same day (EagleView, Hover…)", "next": "sales_followup" },
+        { "label": "A few days", "next": "sales_followup", "pains": ["slow-estimates"] },
+        { "label": "By hand after the roof climb", "next": "sales_followup", "pains": ["slow-estimates"] },
+        { "label": "Mostly insurance scope, we match it", "next": "sales_followup" }
+      ]
+    },
+
+    "sales_followup": {
+      "section": "Estimates",
+      "question": "What happens to unsigned estimates?",
+      "say": "Quick question: when you send an estimate and don't hear back, what happens next?",
+      "why": "Stop talking after you ask. \"Nothing\" or \"I try to remember\" is the pain.",
+      "answers": [
+        { "label": "Automated follow-up sequence", "next": "sales_close_rate" },
+        { "label": "Rep follows up when they remember", "next": "sales_close_rate", "pains": ["no-estimate-followup"] },
+        { "label": "Honestly, nothing", "next": "sales_close_rate", "pains": ["no-estimate-followup"] },
+        { "label": "Depends on the rep", "next": "sales_close_rate", "pains": ["inconsistent-followup"] }
+      ]
+    },
+
+    "sales_close_rate": {
+      "section": "Estimates",
+      "question": "Rough close rate?",
+      "say": "Roughly what share of the estimates you send end up signing?",
+      "why": "If they don't know this number, nobody is watching the funnel.",
+      "answers": [
+        { "label": "40%+", "next": "owner_week" },
+        { "label": "20–40%", "next": "owner_week" },
+        { "label": "Under 20%", "next": "owner_week", "pains": ["low-close-rate"] },
+        { "label": "Don't track it", "next": "owner_week", "pains": ["no-sales-metrics"] }
+      ]
+    }
+  }
+}

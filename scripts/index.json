@@ -1,6 +1,15 @@
 {
   "common": "common.json",
   "industries": [
-    { "id": "solar", "label": "Solar installers", "file": "solar.json" }
+    {
+      "id": "roofing",
+      "label": "Roofers",
+      "file": "roofing.json"
+    },
+    {
+      "id": "solar",
+      "label": "Solar installers",
+      "file": "solar.json"
+    }
   ]
 }

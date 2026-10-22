@@ -52,6 +52,7 @@ exactly what's wrong.
 |---|---|
 | `index.json` | Which industries show up in the dropdown |
 | `common.json` | The three closes and the five objections, shared by every industry |
+| `roofing.json` | The roofing tree (insurance / storm work, money owed) |
 | `solar.json` | The solar tree |
 | `_template.json` | Starting point for a new industry (ignored by the app) |
 
