@@ -1,0 +1,6 @@
+{
+  "common": "common.json",
+  "industries": [
+    { "id": "solar", "label": "Solar installers", "file": "solar.json" }
+  ]
+}

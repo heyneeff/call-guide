@@ -1,0 +1,50 @@
+{
+  "_about": "Copy this to e.g. roofing.json, then add it to index.json. Files starting with _ are ignored. The three closes and the objections come from common.json automatically.",
+
+  "start": "opener",
+
+  "vars": { "trade": "roofers", "finishLine": "finished, paid job" },
+
+  "anchors": {
+    "quick": "owner_week",
+    "process": "opener",
+    "tools": "opener"
+  },
+
+  "sections": [
+    { "label": "Opener", "start": "opener" },
+    { "label": "Owner pain", "start": "owner_week" },
+    { "label": "Close", "start": "close" }
+  ],
+
+  "painTags": {
+    "owner-firefighting": { "label": "Owner stuck firefighting" }
+  },
+
+  "nodes": {
+    "opener": {
+      "section": "Opener",
+      "question": "Permission-based intro",
+      "say": [
+        "Hi, is this {{contact|the owner}}?",
+        "Hey, this is {{me}}. I'll be quick, and this is a cold call, so feel free to hang up on me in 30 seconds."
+      ],
+      "why": "Asking permission lowers their guard.",
+      "answers": [
+        { "label": "Sure, go ahead", "next": "owner_week" },
+        { "label": "Not interested", "objection": "not_interested" }
+      ]
+    },
+
+    "owner_week": {
+      "section": "Owner pain",
+      "question": "What eats most of your week?",
+      "say": "What eats most of your week?",
+      "why": "The pain they feel personally.",
+      "answers": [
+        { "label": "Putting out fires", "next": "close", "pains": ["owner-firefighting"] },
+        { "label": "Not much, things run fine", "next": "close" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "start": "opener",
+
+  "vars": { "trade": "solar installers", "finishLine": "live system with PTO" },
+
+  "anchors": {
+    "quick": "owner_week",
+    "process": "pipeline_tracking",
+    "tools": "tools_fit"
+  },
+
+  "sections": [
+    { "label": "Opener", "start": "opener" },
+    { "label": "Lead flow", "start": "lead_source" },
+    { "label": "Sales", "start": "sales_proposal" },
+    { "label": "Pipeline", "start": "pipeline_tracking" },
+    { "label": "Customer comms", "start": "comms_updates" },
+    { "label": "Crew & scheduling", "start": "crew_scheduling" },
+    { "label": "Money", "start": "money_financing" },
+    { "label": "Tools", "start": "tools_current" },
+    { "label": "Owner pain", "start": "owner_week" },
+    { "label": "Close", "start": "close" }
+  ],
+
+  "painTags": {
+    "lead-cost":              { "label": "Paying for shared vendor leads" },
+    "no-lead-tracking":       { "label": "Leads not tracked anywhere central" },
+    "leads-in-spreadsheet":   { "label": "Leads tracked in a spreadsheet" },
+    "rep-owned-leads":        { "label": "Leads live in reps' phones" },
+    "slow-lead-response":     { "label": "Slow speed-to-lead" },
+    "no-lead-metrics":        { "label": "No visibility on lead response time" },
+    "slow-proposals":         { "label": "Proposals take days" },
+    "manual-proposals":       { "label": "Proposals built by hand" },
+    "no-proposal-followup":   { "label": "Unsigned proposals go cold" },
+    "inconsistent-followup":  { "label": "Follow-up depends on the rep" },
+    "low-close-rate":         { "label": "Low close rate" },
+    "no-sales-metrics":       { "label": "Close rate not tracked" },
+    "pipeline-spreadsheet":   { "label": "Job pipeline on a spreadsheet or whiteboard" },
+    "key-person-risk":        { "label": "Pipeline lives in one person's head" },
+    "fragmented-tools":       { "label": "Job status split across tools" },
+    "permit-delays":          { "label": "Jobs stuck in permitting" },
+    "interconnection-delays": { "label": "Jobs stuck in utility interconnection" },
+    "survey-design-handoff":  { "label": "Survey to design handoff drops" },
+    "pto-delays":             { "label": "Slow inspection / PTO" },
+    "customer-doc-delays":    { "label": "Waiting on customer docs / HOA" },
+    "no-pipeline-visibility": { "label": "No clear count of stalled jobs" },
+    "manual-status-updates":  { "label": "Status updates done by hand" },
+    "reactive-comms":         { "label": "Customers have to call for updates" },
+    "rep-as-support":         { "label": "Sales reps stuck doing customer support" },
+    "wheres-my-install":      { "label": "Constant \"where's my install?\" calls" },
+    "bad-reviews":            { "label": "Delays hurting reviews / cancellations" },
+    "manual-scheduling":      { "label": "Scheduling on whiteboard / group text" },
+    "owner-scheduling":       { "label": "Owner is the scheduling bottleneck" },
+    "sub-coordination":       { "label": "Coordinating subcontracted crews" },
+    "wasted-trips":           { "label": "Wasted truck rolls" },
+    "double-bookings":        { "label": "Double-booked crews" },
+    "material-coordination":  { "label": "Equipment not on site when crew arrives" },
+    "payments-spreadsheet":   { "label": "Payments tracked in a spreadsheet" },
+    "slow-collections":       { "label": "Deposits / milestones chased at month-end" },
+    "missed-milestones":      { "label": "Missed or late financing milestones" },
+    "manual-commissions":     { "label": "Commissions calculated by hand" },
+    "commission-disputes":    { "label": "Commission disputes / clawback headaches" },
+    "spreadsheet-ops":        { "label": "Business runs on spreadsheets" },
+    "design-only-tools":      { "label": "Design tool, but no ops system" },
+    "generic-fsm":            { "label": "Generic field-service tool, not built for solar" },
+    "no-system":              { "label": "No real system" },
+    "double-entry":           { "label": "Re-typing data between tools" },
+    "unused-software":        { "label": "Paying for software nobody uses" },
+    "owner-firefighting":     { "label": "Owner stuck firefighting job status" },
+    "owner-is-sales":         { "label": "Owner still carrying sales" },
+    "owner-admin":            { "label": "Owner buried in admin" }
+  },
+
+  "nodes": {
+
+    "opener": {
+      "section": "Opener",
+      "question": "Permission-based intro",
+      "say": [
+        "Hi, is this {{contact|the owner}}?",
+        "Hey, this is {{me}}. I'll be quick, and this is a cold call, so feel free to hang up on me in 30 seconds.",
+        "Mind if I take 30 seconds to tell you why I called, and you tell me if it's worth talking?"
+      ],
+      "why": "Saying it's a cold call and asking permission lowers their guard. They get to say yes.",
+      "answers": [
+        { "label": "Sure, go ahead", "next": "opener_pitch" },
+        { "label": "Who is this? What's it about?", "next": "opener_pitch" },
+        { "label": "Wrong person / gatekeeper", "next": "opener_gatekeeper" },
+        { "label": "Got voicemail", "next": "opener_voicemail" },
+        { "label": "Bad time", "objection": "too_busy" },
+        { "label": "Not interested", "objection": "not_interested" }
+      ]
+    },
+
+    "opener_pitch": {
+      "section": "Opener",
+      "question": "The 30-second why",
+      "say": [
+        "I work with {{trade}} around Denver on the back-office side, mostly everything that happens after a contract is signed.",
+        "Most shops I talk to are great at selling and installing, but jobs get stuck somewhere between signed and PTO, and the status lives in a spreadsheet or in someone's head.",
+        "I'm not here to pitch software. I'm trying to figure out if that's true for {{business|your shop}}. Mind if I ask a few quick questions?"
+      ],
+      "why": "Naming a common problem lets them recognize themselves. \"Yeah, that's us\" is your opening.",
+      "answers": [
+        { "label": "Yeah, ask away", "next": "lead_source" },
+        { "label": "Make it quick", "next": "owner_week" },
+        { "label": "Is this software?", "objection": "have_software" },
+        { "label": "How much is it?", "objection": "how_much" }
+      ]
+    },
+
+    "opener_gatekeeper": {
+      "section": "Opener",
+      "question": "Find the right person",
+      "say": [
+        "No worries. I'm trying to reach whoever handles how leads and scheduling work there. Is that the owner or someone else?",
+        "When's the best time to catch them?"
+      ],
+      "why": "Get a name and a time. Write both in Notes.",
+      "answers": [
+        { "label": "Got a name and a time, log a callback", "next": "close_callback" },
+        { "label": "They're putting me through", "next": "opener" },
+        { "label": "Brush-off", "next": "close_exit" }
+      ]
+    },
+
+    "opener_voicemail": {
+      "section": "Opener",
+      "question": "Voicemail (under 20 seconds)",
+      "say": [
+        "Hi {{contact|there}}, {{me}} here. I help {{trade}} in Denver stop losing jobs that stall between signed and PTO.",
+        "I had one specific idea for {{business|your company}}. I'm at [your number]. Again, [your number]. Thanks."
+      ],
+      "why": "Follow up in 2 business days. Try 3 times max before moving on.",
+      "answers": [
+        { "label": "Left it, log a follow-up in 2 days", "next": "close_callback" }
+      ]
+    },
+
+    "lead_source": {
+      "section": "Lead flow",
+      "question": "Where do most of your leads come from?",
+      "say": "Where do most of your new customers come from right now: referrals, door-knocking, ads, lead vendors?",
+      "why": "Paid and vendor leads are also sold to competitors, so how fast they respond decides who wins the job.",
+      "answers": [
+        { "label": "Referrals", "next": "lead_tracking" },
+        { "label": "Door-knocking / canvassing", "next": "lead_tracking" },
+        { "label": "Paid ads (Google, Facebook)", "next": "lead_tracking" },
+        { "label": "Lead vendors", "next": "lead_tracking", "pains": ["lead-cost"] },
+        { "label": "Mix of everything", "next": "lead_tracking" },
+        { "label": "We sub for other companies (no own sales)", "next": "pipeline_tracking" }
+      ]
+    },
+
+    "lead_tracking": {
+      "section": "Lead flow",
+      "question": "How are leads tracked?",
+      "say": "When a new lead comes in, where does it go? How do you keep track of it?",
+      "why": "If leads live in reps' phones, you lose them when the rep leaves, and you can't see what's falling through.",
+      "answers": [
+        { "label": "A CRM", "next": "lead_speed" },
+        { "label": "Spreadsheet", "next": "lead_speed", "pains": ["leads-in-spreadsheet"] },
+        { "label": "Texts, email, memory", "next": "lead_speed", "pains": ["no-lead-tracking"] },
+        { "label": "Each rep tracks their own", "next": "lead_speed", "pains": ["rep-owned-leads"] }
+      ]
+    },
+
+    "lead_speed": {
+      "section": "Lead flow",
+      "question": "How fast does a new lead get a call back?",
+      "say": "And when a new lead comes in, how fast does someone usually get back to them?",
+      "why": "Leads called back within minutes convert far better than next-day callbacks. This is often the cheapest fix there is.",
+      "answers": [
+        { "label": "Within minutes / an hour", "next": "sales_proposal" },
+        { "label": "Same day", "next": "sales_proposal" },
+        { "label": "Next day or later", "next": "sales_proposal", "pains": ["slow-lead-response"] },
+        { "label": "Honestly not sure", "next": "sales_proposal", "pains": ["no-lead-metrics"] }
+      ]
+    },
+
+    "sales_proposal": {
+      "section": "Sales",
+      "question": "How do proposals get built?",
+      "say": "Once you've got someone interested, how does the proposal get put together, and how long does that usually take?",
+      "why": "Slow proposals let a homeowner's interest cool, and the next installer quotes them first.",
+      "answers": [
+        { "label": "Design tool, same day (Aurora, OpenSolar…)", "next": "sales_followup" },
+        { "label": "A few days, back-and-forth with design", "next": "sales_followup", "pains": ["slow-proposals"] },
+        { "label": "Reps build them by hand / templates", "next": "sales_followup", "pains": ["manual-proposals"] },
+        { "label": "Outsourced design", "next": "sales_followup" }
+      ]
+    },
+
+    "sales_followup": {
+      "section": "Sales",
+      "question": "What happens to unsigned proposals?",
+      "say": "Quick question: when you send a proposal and don't hear back, what happens next?",
+      "why": "Stop talking after you ask. \"Nothing\" or \"I try to remember\" is the pain.",
+      "answers": [
+        { "label": "Automated follow-up sequence", "next": "sales_close_rate" },
+        { "label": "Rep follows up when they remember", "next": "sales_close_rate", "pains": ["no-proposal-followup"] },
+        { "label": "Honestly, nothing", "next": "sales_close_rate", "pains": ["no-proposal-followup"] },
+        { "label": "Depends on the rep", "next": "sales_close_rate", "pains": ["inconsistent-followup"] }
+      ]
+    },
+
+    "sales_close_rate": {
+      "section": "Sales",
+      "question": "Rough close rate?",
+      "say": "Roughly what share of the proposals you send end up signing?",
+      "why": "If they don't know this number, nobody is watching the funnel.",
+      "answers": [
+        { "label": "30%+", "next": "pipeline_tracking" },
+        { "label": "15–30%", "next": "pipeline_tracking" },
+        { "label": "Under 15%", "next": "pipeline_tracking", "pains": ["low-close-rate"] },
+        { "label": "Don't track it", "next": "pipeline_tracking", "pains": ["no-sales-metrics"] }
+      ]
+    },
+
+    "pipeline_tracking": {
+      "section": "Pipeline",
+      "question": "How do you track a job from signed to PTO?",
+      "say": "Once a contract's signed, there's site survey, design, permitting, interconnection, install, inspection, PTO. How do you keep track of where every job is?",
+      "why": "This is the core of the audit. Work moves but status doesn't, and that's where the money leaks.",
+      "answers": [
+        { "label": "Project management software", "next": "pipeline_stuck" },
+        { "label": "Spreadsheet / whiteboard", "next": "pipeline_stuck", "pains": ["pipeline-spreadsheet"] },
+        { "label": "Our PM keeps it in their head", "next": "pipeline_stuck", "pains": ["key-person-risk"] },
+        { "label": "A mix of tools", "next": "pipeline_stuck", "pains": ["fragmented-tools"] }
+      ]
+    },
+
+    "pipeline_stuck": {
+      "section": "Pipeline",
+      "question": "Where do jobs get stuck the longest?",
+      "say": "Out of all those stages, where do jobs tend to sit the longest?",
+      "why": "Each stalled week delays the final payment. Find out which stage stalls and you know where to start.",
+      "answers": [
+        { "label": "Permitting / AHJ", "next": "pipeline_count", "pains": ["permit-delays"] },
+        { "label": "Utility interconnection", "next": "pipeline_count", "pains": ["interconnection-delays"] },
+        { "label": "Survey → design handoff", "next": "pipeline_count", "pains": ["survey-design-handoff"] },
+        { "label": "Inspection / PTO", "next": "pipeline_count", "pains": ["pto-delays"] },
+        { "label": "Waiting on customer docs / HOA", "next": "pipeline_count", "pains": ["customer-doc-delays"] },
+        { "label": "Things move pretty smoothly", "next": "pipeline_count" }
+      ]
+    },
+
+    "pipeline_count": {
+      "section": "Pipeline",
+      "question": "How many jobs are stalled right now?",
+      "say": "If I asked you right now how many jobs are in the pipeline, and how many are stalled, could you tell me?",
+      "why": "Not knowing this number off the top of their head is the 'owner dashboard' problem.",
+      "answers": [
+        { "label": "Yes, exactly", "next": "comms_updates" },
+        { "label": "Rough idea", "next": "comms_updates" },
+        { "label": "No idea", "next": "comms_updates", "pains": ["no-pipeline-visibility"] }
+      ]
+    },
+
+    "comms_updates": {
+      "section": "Customer comms",
+      "question": "How do customers get status updates?",
+      "say": "While all that's happening, how does the homeowner find out where their install is at?",
+      "why": "Homeowners who hear nothing for weeks start calling, leave bad reviews, or cancel.",
+      "answers": [
+        { "label": "Automated updates / customer portal", "next": "comms_calls" },
+        { "label": "PM calls or texts them", "next": "comms_calls", "pains": ["manual-status-updates"] },
+        { "label": "They call us", "next": "comms_calls", "pains": ["reactive-comms"] },
+        { "label": "Sales rep handles it", "next": "comms_calls", "pains": ["rep-as-support"] }
+      ]
+    },
+
+    "comms_calls": {
+      "section": "Customer comms",
+      "question": "How many \"where's my install?\" calls a week?",
+      "say": "Roughly how many \"where's my install?\" calls or texts do you get in a week?",
+      "why": "Each one is 5–10 minutes of someone's time spent looking up status by hand.",
+      "answers": [
+        { "label": "Barely any", "next": "crew_scheduling" },
+        { "label": "A handful", "next": "crew_scheduling" },
+        { "label": "Constantly / 10+", "next": "crew_scheduling", "pains": ["wheres-my-install"] },
+        { "label": "It's hurting reviews / cancellations", "next": "crew_scheduling", "pains": ["wheres-my-install", "bad-reviews"] }
+      ]
+    },
+
+    "crew_scheduling": {
+      "section": "Crew & scheduling",
+      "question": "How do surveys and installs get scheduled?",
+      "say": "How do site surveys and installs get on the calendar? Who does the scheduling?",
+      "why": "If the owner is the only one who can schedule, the owner is the bottleneck for every job.",
+      "answers": [
+        { "label": "Scheduling software / shared calendar", "next": "crew_problems" },
+        { "label": "Whiteboard / group text", "next": "crew_problems", "pains": ["manual-scheduling"] },
+        { "label": "Owner does it by phone", "next": "crew_problems", "pains": ["owner-scheduling"] },
+        { "label": "Subcontracted crews", "next": "crew_problems", "pains": ["sub-coordination"] }
+      ]
+    },
+
+    "crew_problems": {
+      "section": "Crew & scheduling",
+      "question": "Double-bookings or wasted trips?",
+      "say": "In the last month, any double-bookings or wasted trips? A crew shows up and the permit, the equipment, or the customer isn't ready?",
+      "why": "A wasted truck roll costs a crew-day. Owners remember these, so ask for a specific story.",
+      "answers": [
+        { "label": "No, pretty clean", "next": "money_financing" },
+        { "label": "A few", "next": "money_financing", "pains": ["wasted-trips"] },
+        { "label": "Regularly", "next": "money_financing", "pains": ["wasted-trips", "double-bookings"] },
+        { "label": "Equipment not on site", "next": "money_financing", "pains": ["material-coordination"] }
+      ]
+    },
+
+    "money_financing": {
+      "section": "Money",
+      "question": "How are financing, deposits, and milestones tracked?",
+      "say": "On the money side: how do you keep track of financing approvals, deposits, and milestone payments?",
+      "why": "Financier milestones (M1, M2, PTO) that nobody tracks mean cash shows up weeks late.",
+      "answers": [
+        { "label": "Integrated with accounting / CRM", "next": "money_commissions" },
+        { "label": "Spreadsheet", "next": "money_commissions", "pains": ["payments-spreadsheet"] },
+        { "label": "Bookkeeper chases it at month-end", "next": "money_commissions", "pains": ["slow-collections"] },
+        { "label": "Milestones get missed or delayed", "next": "money_commissions", "pains": ["missed-milestones"] }
+      ]
+    },
+
+    "money_commissions": {
+      "section": "Money",
+      "question": "How are rep commissions handled?",
+      "say": "And sales rep commissions: how do those get calculated and paid out?",
+      "why": "Commission disputes take up the owner's time and drive good reps away.",
+      "answers": [
+        { "label": "Automated / clear", "next": "tools_current" },
+        { "label": "Spreadsheet, by hand", "next": "tools_current", "pains": ["manual-commissions"] },
+        { "label": "Disputes with reps", "next": "tools_current", "pains": ["commission-disputes"] },
+        { "label": "Clawbacks are a headache", "next": "tools_current", "pains": ["commission-disputes"] },
+        { "label": "No reps / owner sells", "next": "tools_current", "pains": ["owner-is-sales"] }
+      ]
+    },
+
+    "tools_current": {
+      "section": "Tools",
+      "question": "What software runs the business today?",
+      "say": "What are you using to run all this today, software-wise?",
+      "why": "Write the exact tool names in Notes. You'll need them for the audit and the build.",
+      "answers": [
+        { "label": "Spreadsheets, mostly", "next": "tools_fit", "pains": ["spreadsheet-ops"] },
+        { "label": "Enerflo", "next": "tools_fit" },
+        { "label": "Aurora / OpenSolar (design only)", "next": "tools_fit", "pains": ["design-only-tools"] },
+        { "label": "Jobber / Housecall Pro", "next": "tools_fit", "pains": ["generic-fsm"] },
+        { "label": "A CRM (HubSpot, Salesforce, GHL…)", "next": "tools_fit" },
+        { "label": "Nothing really", "next": "owner_week", "pains": ["no-system"] }
+      ]
+    },
+
+    "tools_fit": {
+      "section": "Tools",
+      "question": "Do the tools talk to each other?",
+      "say": "Do those tools talk to each other, or is someone re-typing the same info from one into another?",
+      "why": "Re-typing data between tools is a quick fix that's easy to show results on.",
+      "answers": [
+        { "label": "Connected, it works", "next": "owner_week" },
+        { "label": "Some double entry", "next": "owner_week", "pains": ["double-entry"] },
+        { "label": "Lots of re-typing", "next": "owner_week", "pains": ["double-entry"] },
+        { "label": "Paying for stuff we don't use", "next": "owner_week", "pains": ["unused-software"] }
+      ]
+    },
+
+    "owner_week": {
+      "section": "Owner pain",
+      "question": "What eats most of your week?",
+      "say": "Last one, the big one: what eats most of your week?",
+      "why": "This is the pain they feel personally. Write down their exact words, because you'll repeat them in the close.",
+      "answers": [
+        { "label": "Chasing job status / putting out fires", "next": "owner_one_thing", "pains": ["owner-firefighting"] },
+        { "label": "Selling", "next": "owner_one_thing", "pains": ["owner-is-sales"] },
+        { "label": "Admin, paperwork, billing", "next": "owner_one_thing", "pains": ["owner-admin"] },
+        { "label": "Managing crews / scheduling", "next": "owner_one_thing", "pains": ["owner-scheduling"] },
+        { "label": "Customer calls", "next": "owner_one_thing", "pains": ["wheres-my-install"] }
+      ]
+    },
+
+    "owner_one_thing": {
+      "section": "Owner pain",
+      "question": "If one thing ran itself, what would you pick?",
+      "say": "If one thing in the business just ran itself, what would you pick?",
+      "why": "Their answer is what you sell the audit on. It shows up at the top of the pain summary.",
+      "answers": [
+        { "label": "Lead follow-up", "next": "close", "wish": "lead follow-up" },
+        { "label": "Job status / pipeline tracking", "next": "close", "wish": "job status tracking" },
+        { "label": "Customer updates", "next": "close", "wish": "customer updates" },
+        { "label": "Scheduling", "next": "close", "wish": "scheduling" },
+        { "label": "Billing, payments & commissions", "next": "close", "wish": "billing and commissions" },
+        { "label": "Something else (note it)", "next": "close" }
+      ]
+    }
+  }
+}

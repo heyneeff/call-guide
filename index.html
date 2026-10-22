@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Call Guide</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Shown only if scripts/ can't be fetched (e.g. opened via file://) -->
+  <section id="loader" class="loader" hidden>
+    <h1>Couldn't load the call scripts</h1>
+    <p id="loaderError" class="loader-error"></p>
+    <p><strong>Easiest fix:</strong> double-click <code>start.command</code> in this folder. It serves the guide at
+      <code>http://localhost:8765</code> and opens it.</p>
+    <p>Or pick the JSON files from the <code>scripts/</code> folder (select all of them):</p>
+    <input id="picker" type="file" accept=".json,application/json" multiple>
+  </section>
+
+  <div id="app" hidden>
+    <header class="top">
+      <div class="brand">Call Guide</div>
+      <select id="industry" aria-label="Industry"></select>
+      <input id="business" placeholder="Business name" autocomplete="off">
+      <input id="contact" placeholder="Contact name" autocomplete="off">
+      <input id="phone" placeholder="Phone" autocomplete="off">
+      <span id="timer" class="timer" title="Call time (starts on first click or keystroke)">–:––</span>
+      <button id="newCall" class="btn">New call</button>
+      <button id="logBtn" class="btn">Call log</button>
+    </header>
+
+    <nav id="sections" class="sections" aria-label="Jump to section"></nav>
+    <div id="banner" class="banner" hidden></div>
+    <details id="warnings" class="warnings" hidden><summary></summary><ul></ul></details>
+
+    <div class="layout">
+      <main class="stage">
+        <article id="card" class="card">
+          <div id="crumb" class="crumb"></div>
+          <h1 id="question" class="question"></h1>
+          <div id="say" class="say"></div>
+          <p id="why" class="why"></p>
+          <div id="answers" class="answers"></div>
+          <div id="end" class="end" hidden></div>
+        </article>
+
+        <div class="controls">
+          <button id="back" class="btn">← Back</button>
+          <button id="restart" class="btn">Restart</button>
+          <span class="spacer"></span>
+          <button id="toClose" class="btn btn-accent">Wrap up → close</button>
+        </div>
+        <p class="hint">Keys: <kbd>1</kbd>–<kbd>9</kbd> pick an answer · <kbd>←</kbd> back · <kbd>Esc</kbd> close panel</p>
+      </main>
+
+      <aside class="side">
+        <section class="panel">
+          <h2>Pain summary <span id="painCount" class="count">0</span></h2>
+          <div id="wish" class="wish" hidden></div>
+          <ul id="painList" class="pains"></ul>
+          <form id="addPain" class="addpain">
+            <input id="addPainInput" placeholder="Add a pain you heard…" autocomplete="off">
+          </form>
+          <div id="objHeard" class="objheard" hidden></div>
+        </section>
+
+        <section class="panel">
+          <h2>Notes <span id="notesMeta" class="meta"></span></h2>
+          <textarea id="notes" placeholder="Anything worth remembering — names, numbers, quotes…"></textarea>
+        </section>
+
+        <details class="panel settings">
+          <summary>Your details</summary>
+          <label>Your name <input id="setMe" autocomplete="off"></label>
+          <label>Company <input id="setCompany" autocomplete="off"></label>
+          <p class="meta">Used in the script wherever it says {{me}} / {{company}}.</p>
+        </details>
+      </aside>
+    </div>
+
+    <footer class="objbar">
+      <span class="objbar-label">Objection:</span>
+      <div id="objButtons" class="objbuttons"></div>
+    </footer>
+  </div>
+
+  <!-- Objection panel -->
+  <div id="overlay" class="overlay" hidden>
+    <div class="sheet" role="dialog" aria-labelledby="objTitle">
+      <div class="crumb">Objection</div>
+      <h2 id="objTitle" class="question"></h2>
+      <div id="objSay" class="say"></div>
+      <p id="objWhy" class="why"></p>
+      <div id="objPaths" class="answers"></div>
+    </div>
+  </div>
+
+  <!-- Call log drawer -->
+  <div id="drawer" class="drawer" hidden>
+    <div class="drawer-inner">
+      <div class="drawer-head">
+        <h2>Call log</h2>
+        <span class="spacer"></span>
+        <button id="exportCsv" class="btn btn-accent">Export CSV</button>
+        <button id="closeLog" class="btn">Close</button>
+      </div>
+      <div id="logList"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
