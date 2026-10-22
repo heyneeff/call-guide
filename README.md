@@ -29,12 +29,13 @@ export the CSV now and then as a backup.
 
 ## During a call
 
-- Type the **business name** (and contact/phone) at the top. The timer starts on your first click or keystroke.
+- Type the **business name** (and contact/phone) at the top, plus a **hook** from the lead sheet's Score Reasons (e.g. "340 reviews but no online quote form"). The hook shows up in the opener. The timer starts on your first click or keystroke.
 - Click an answer, or press **1–9**. **←** or **Backspace** goes back (and un-tags that step's pains).
 - **Section chips** along the top jump anywhere, for when the prospect jumps ahead.
+- **Go deeper** (or press **D**) opens the pain funnel any time they mention a problem. Type what it costs them, in their words. The close repeats it back to them.
 - **Objection bar** at the bottom is always there. Each response has paths, including "Back to where we were".
-- **Wrap up → close** goes to the close from anywhere. The suggested close is highlighted (3+ pains → audit, 1+ → callback).
-- **Pain summary** fills in as you go. Remove one with ×, or type your own.
+- **Wrap up → close** goes to the close from anywhere. Once you've found 2 pains it lights up: that's your cue to stop asking questions and close.
+- **Pain summary** fills in as you go. Click a pain to ★ it as the main one (the close leads with it). Remove one with ×, or type your own.
 - **Save & finish call** on a close screen logs the call and clears everything for the next dial.
 - **New call** saves the current one as "Unfinished" if anything was entered.
 - **Call log → Export CSV** downloads every call: outcome, follow-up date, pains, owner's wish, objections, path, notes.
@@ -97,3 +98,20 @@ exactly what's wrong.
 Add a fallback with a pipe: `{{contact|the owner}}`. A line whose placeholder
 is empty and has no fallback is skipped. That's how "First thing I'd look at:
 {{topPain}}" disappears when nothing's been tagged yet.
+
+## How the call is built
+
+The script follows standard cold-call practice. Keep this in mind when you
+edit it:
+
+1. **Permission opener.** Say it's a cold call and ask for 30 seconds. Never open with "is this a bad time?"
+2. **Reason for the call plus a problem statement**, ending on a question about that problem ("is that something you run into, or are you buttoned up?"). Don't ask "can I ask you some questions?"
+3. **Discovery goes deep, not wide.** Find the problem, ask what it costs them, then use the pain funnel (Go deeper) to get a number in their words. A pain they haven't put a number on won't close.
+4. **Close as soon as you have 2 real pains.** The goal of the call is the audit. The audit is where the full discovery happens.
+5. **Bridge:** summarize their pain in their words and get a "yes, that's it" before you pitch.
+6. **Ask with two specific times, then go quiet.** Expect pushback after the ask (price, partner, timing, "just tell me", "send me something"). Each one has a node: acknowledge it, answer briefly, and ask again or offer a smaller step.
+7. **Lock it in** with an up-front agreement about what happens after the audit, and send the invite while you're still on the phone.
+8. **Exits still ask for something**: what would change their mind, permission to follow up, or a referral.
+
+Each pain tag can have a `tip`: a real quick win you can give away when they
+say "just tell me what to fix." `{{tip}}` uses the tip for the main pain.

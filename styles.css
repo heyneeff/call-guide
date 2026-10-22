@@ -39,7 +39,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  padding-bottom: 72px; /* room for objection bar */
+  padding-bottom: 120px; /* room for objection bar */
 }
 [hidden] { display: none !important; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -59,9 +59,9 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .top input, .top select {
   padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); min-width: 0;
 }
-#business { flex: 1 1 200px; font-weight: 600; }
-#contact { flex: 1 1 140px; }
-#phone { flex: 0 1 140px; }
+#business { flex: 1 1 160px; font-weight: 600; }
+#contact { flex: 1 1 110px; }
+#phone { flex: 0 1 120px; }
 .timer { font-variant-numeric: tabular-nums; color: var(--muted); min-width: 48px; text-align: right; }
 
 .btn {
@@ -201,7 +201,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
   background: var(--panel); border-top: 1px solid var(--line);
 }
 .objbar-label { color: var(--muted); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; flex: none; }
-.objbuttons { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.objbuttons { display: flex; flex-wrap: wrap; gap: 6px 8px; }
 .objbuttons button {
   flex: none; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
   background: var(--bg); cursor: pointer; font-size: 15px;
@@ -243,3 +243,16 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .loader { max-width: 620px; margin: 10vh auto; padding: 0 16px; }
 .loader h1 { font-size: 26px; }
 .loader-error { color: var(--pain); font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+/* ---------- closing aids ---------- */
+#hook { flex: 2 1 180px; font-style: italic; }
+.btn.nudge { box-shadow: 0 0 0 4px var(--accent-soft); font-weight: 600; }
+.objbuttons button.probe {
+  background: var(--accent-soft); border-color: var(--accent); color: var(--ink); font-weight: 600;
+}
+.pains button.plabel {
+  border: none; background: none; padding: 0; text-align: left; cursor: pointer; color: inherit;
+}
+.pains li.main { border-left-width: 6px; }
+.sheet .capture { margin: 4px 0 18px; font-size: 14px; color: var(--muted); }
+.sheet .capture input { flex: 1 1 260px; font-size: 16px; color: var(--ink); }

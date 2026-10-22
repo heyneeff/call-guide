@@ -1,20 +1,124 @@
 {
-  "_about": "Shared by every industry: the three closes and the objection buttons. An industry file can override any node or objection by using the same id. Paths like \"@quick\" point at that industry's anchors.",
+  "_about": "Shared by every industry: the close sequence, the objection buttons, and the Go deeper panel. An industry file can override any node or objection by using the same id. Paths like \"@quick\" point at that industry's anchors.",
+
+  "closeNudgeAt": 2,
 
   "nodes": {
     "close": {
       "section": "Close",
-      "question": "Wrap up: pick the close",
+      "question": "Bridge: summarize in their words, then confirm",
       "say": [
-        "This has been really helpful, thank you.",
-        "From what you've told me, a few things are costing you real time: {{pains}}.",
-        "And if one thing ran itself, you said it'd be {{wish}}."
+        "Let me make sure I heard you right.",
+        "The big ones sound like {{pains}}.",
+        "You said that's costing you {{cost}}.",
+        "And if one thing ran itself, it'd be {{wish}}.",
+        "Did I get that right?"
       ],
-      "why": "The highlighted close is a suggestion based on how many pains you tagged. Trust your ear over the count.",
+      "why": "Play their pain back before you pitch anything. A 'yes, that's it' here makes the ask feel like the obvious next step. Use their words, not the tag labels.",
       "answers": [
-        { "label": "Book the $750 audit", "next": "close_audit", "minPains": 3 },
-        { "label": "Schedule a callback", "next": "close_callback", "minPains": 1 },
-        { "label": "Polite exit", "next": "close_exit", "minPains": 0 }
+        { "label": "\"Yeah, that's it\": ask for the audit", "next": "audit_ask", "minPains": 2 },
+        { "label": "Lukewarm: set a callback", "next": "close_callback", "minPains": 1 },
+        { "label": "No real pain: polite exit", "next": "close_exit", "minPains": 0 }
+      ]
+    },
+
+    "audit_ask": {
+      "section": "Close",
+      "question": "Ask for the audit, then stop talking",
+      "say": [
+        "Here's what I'd suggest. I do a flat $750 operations audit: about an hour with you, I map how a lead becomes a {{finishLine}}, and you get a one-page report of where it's leaking and what to fix first.",
+        "I'd start with {{topPain}}.",
+        "I'm doing exactly this right now for a solar and electrical contractor in Arizona.",
+        "If you have me build the fix within 30 days, the $750 comes off the build price.",
+        "Do you have an hour Tuesday or Thursday?"
+      ],
+      "why": "Offer two specific days, then let the silence sit. Their first answer is usually an objection, not a no. Handle it and ask again.",
+      "answers": [
+        { "label": "Yes, let's book it", "next": "close_audit" },
+        { "label": "\"$750? What do I actually get?\"", "next": "audit_price" },
+        { "label": "\"Need to talk to my partner / spouse\"", "next": "audit_partner" },
+        { "label": "\"Busy season, maybe later\"", "next": "audit_timing" },
+        { "label": "\"Can't you just tell me what to fix?\"", "next": "audit_tip" },
+        { "label": "\"Send me something first\"", "next": "audit_send" },
+        { "label": "Firm no", "next": "close_exit" }
+      ]
+    },
+
+    "audit_price": {
+      "section": "Close",
+      "question": "Price pushback: acknowledge, anchor to their cost, offer a smaller step",
+      "say": [
+        "Fair question.",
+        "You told me {{topPain}} is costing you {{cost}}. The audit is about putting a number on that and a plan to stop it.",
+        "And if you have me build the fix within 30 days, the $750 comes off the build, so it doesn't cost you anything extra.",
+        "If you'd rather see how I think first, let's do 15 minutes on a screen share. You show me your job list and I'll point out what I see. Then you decide."
+      ],
+      "why": "Don't drop the price. Tie it to the cost they already admitted, then offer a smaller yes. A 15-minute walkthrough still counts as a next step.",
+      "answers": [
+        { "label": "OK, book the audit", "next": "close_audit" },
+        { "label": "Take the 15-minute walkthrough", "next": "close_callback" },
+        { "label": "Still no", "next": "close_exit" }
+      ]
+    },
+
+    "audit_partner": {
+      "section": "Close",
+      "question": "\"Need to check with my partner\"",
+      "say": [
+        "Makes total sense. Who's that?",
+        "Honestly, they should be in the room. They'll see things you don't.",
+        "Let's put a time on the calendar for the three of us. If they're not into it, you cancel with one email. Fair?"
+      ],
+      "why": "Bring the other decision-maker in instead of letting the deal wait on a conversation you're not part of.",
+      "answers": [
+        { "label": "Booked with both of them", "next": "close_audit" },
+        { "label": "They'll check first, set a callback", "next": "close_callback" }
+      ]
+    },
+
+    "audit_timing": {
+      "section": "Close",
+      "question": "\"Busy season, maybe later\"",
+      "say": [
+        "Totally get it, that's when it hurts most.",
+        "When does it slow down for you?",
+        "Let's put it on the calendar for then, so the fixes are in before next season instead of during it."
+      ],
+      "why": "Turn 'later' into a date. A future booking still counts as a booking.",
+      "answers": [
+        { "label": "Booked for a later date", "next": "close_audit" },
+        { "label": "Won't commit, set a callback", "next": "close_callback" }
+      ]
+    },
+
+    "audit_tip": {
+      "section": "Close",
+      "question": "\"Just tell me what to fix\": give one real tip, then re-ask",
+      "say": [
+        "Sure, here's one you can do this week: {{tip}}",
+        "That's one fix. The audit is that, across the whole business, and in the right order.",
+        "Want to grab Tuesday or Thursday?"
+      ],
+      "why": "Giving one real piece of value builds trust. If there's no tip for their pain, give your own best quick fix.",
+      "answers": [
+        { "label": "Yes, book it", "next": "close_audit" },
+        { "label": "I'll try that first, set a callback", "next": "close_callback" },
+        { "label": "No", "next": "close_exit" }
+      ]
+    },
+
+    "audit_send": {
+      "section": "Close",
+      "question": "\"Send me something first\"",
+      "say": [
+        "Happy to, I'll send it today.",
+        "Let's pencil in a time anyway so it doesn't fall through the cracks. If what I send doesn't make sense, just reply 'cancel' and that's it.",
+        "Tuesday or Thursday?"
+      ],
+      "why": "A tentative booking plus an email beats an email alone. Make cancelling easy and they're more likely to say yes.",
+      "answers": [
+        { "label": "Penciled in", "next": "close_audit" },
+        { "label": "Just the email, follow up in 2 days", "next": "close_callback" }
       ]
     },
 
@@ -23,19 +127,19 @@
       "type": "end",
       "outcome": "audit",
       "outcomeLabel": "Audit booked",
-      "question": "Book the $750 audit",
+      "question": "Lock it in",
       "say": [
-        "Here's what I'd suggest. I do a flat $750 operations audit. I sit with you for about an hour, map how a lead becomes a {{finishLine}}, and hand you a one-page report of where time and money are leaking and how to fix it.",
-        "First thing I'd look at: {{topPain}}.",
-        "If you have me build the fix within 30 days, the $750 comes off the price.",
-        "Would Tuesday or Thursday work?"
+        "Great. I'm sending the invite now. What's the best email?",
+        "One thing up front: at the end of the hour, if there's something worth fixing, we'll talk about what a build looks like. If not, no hard feelings. Fair?",
+        "And what would make that hour a win for you?"
       ],
-      "why": "Ask for a specific day. 'Sometime next week' is a callback, not a booking.",
+      "why": "Agree up front on what happens after the audit, so nobody is surprised by a pitch at the end. Ask what would make the hour a win, and write their answer in Notes. Open the report with it.",
       "checklist": [
-        "Lock a date and time, and send the invite while you're still on the phone",
+        "Send the invite while you're still on the phone",
         "Get the best email",
-        "Ask who else should be there (ops manager, office, PM)",
-        "Ask them to have their job list or spreadsheet open for the session"
+        "Who else should be there (ops manager, PM, office)?",
+        "Ask them to have their job list or spreadsheet open",
+        "Write down what a win looks like for them"
       ],
       "capture": { "label": "Audit date & time", "type": "datetime-local" }
     },
@@ -45,15 +149,15 @@
       "type": "end",
       "outcome": "callback",
       "outcomeLabel": "Callback scheduled",
-      "question": "Schedule a callback",
+      "question": "Set a real next step",
       "say": [
-        "Totally fair. Sounds like there might be something here, but now's not the moment.",
-        "When's better, later this week or early next?",
-        "I'll send a quick invite so it doesn't get lost."
+        "Totally fair. Let's not leave it as 'sometime'.",
+        "What's better, later this week or early next?",
+        "I'll send a quick invite, and next time we'll pick up on {{topPain}}."
       ],
-      "why": "Pin an exact time. An open-ended 'call me later' almost never gets answered.",
+      "why": "Get an exact time and agree on what you'll talk about. A calendar hold gets answered. 'Call me next week' usually doesn't.",
       "checklist": [
-        "Pin an exact day and time",
+        "Pin an exact day and time, and send the invite now",
         "Confirm the best number and email",
         "Write down which pain to lead with next time (in Notes)"
       ],
@@ -68,38 +172,72 @@
       "question": "Polite exit",
       "say": [
         "No problem at all, I appreciate you giving me a couple of minutes.",
-        "If things like {{topPain}} ever start costing you more, mind if I check back in a few months?",
-        "Have a good one."
+        "Out of curiosity, what would have to change for this to be worth a conversation?",
+        "Mind if I check back in a few months?",
+        "And is there anyone you know who's drowning in this stuff that I should talk to?"
       ],
-      "why": "Leave on good terms. The 'no' today is often a 'yes' in six months.",
+      "why": "Leave on good terms and ask for one thing: what would change their mind, permission to follow up, or a referral. Today's 'no' is often next season's 'yes'.",
       "checklist": [
         "Note why: not a fit, bad timing, or already handled",
-        "Ask: anyone else you know I should talk to?"
+        "Note what would change their mind",
+        "Got a referral? Add it to the lead sheet"
       ],
       "capture": { "label": "Check back on (optional)", "type": "date" }
     }
   },
 
   "objections": {
+    "dig": {
+      "kind": "probe",
+      "label": "Go deeper ↓",
+      "say": [
+        "Tell me more about that.",
+        "Can you give me a recent example?",
+        "How long has that been going on?",
+        "What have you tried so far?",
+        "Roughly what's it costing you: hours a week, jobs, dollars?",
+        "How do you feel about that?"
+      ],
+      "why": "Use this when they mention a pain. A pain they haven't put a number on won't close, so get the cost in their own words. Ask one question at a time and let them talk.",
+      "capture": { "field": "cost", "label": "What it's costing them (their words)", "placeholder": "e.g. 5 hrs a week chasing permits" },
+      "paths": [
+        { "label": "Back to where we were", "next": "resume" },
+        { "label": "That's enough, bridge to the close", "next": "close" }
+      ]
+    },
     "too_busy": {
       "label": "Too busy",
       "say": [
         "Totally get it. Busy is exactly when things slip, and that's who I work with.",
         "Give me 60 seconds and one question. If it's not relevant, I'll let you go."
       ],
-      "why": "Ask for a tiny, bounded slice of time. It respects them and usually gets a yes.",
+      "why": "Ask for a tiny, bounded slice of time. If they really can't, book a specific time instead.",
       "paths": [
         { "label": "OK, ask the one question", "next": "@quick" },
         { "label": "Really can't, book a callback", "next": "close_callback" },
         { "label": "Back to where we were", "next": "resume" }
       ]
     },
+    "doing_fine": {
+      "label": "We're doing fine",
+      "say": [
+        "Good, that's honestly who I like talking to. The shops that are struggling don't have time to fix anything.",
+        "Usually 'fine' means the owner is holding it together personally.",
+        "If you took two weeks off, what would fall apart first?"
+      ],
+      "why": "Agree, then ask a question that puts them in a specific situation. 'What would fall apart' usually turns up the real pain.",
+      "paths": [
+        { "label": "They named something", "next": "resume" },
+        { "label": "Ask what eats their week", "next": "@quick" },
+        { "label": "Really fine, polite exit", "next": "close_exit" }
+      ]
+    },
     "have_software": {
       "label": "We already have software",
       "say": [
-        "Great, most of the folks I work with do. Most people use about 20% of what they're paying for.",
-        "I'm not selling software. Half my audits are 'set up what you already pay for', plus fixing the handoffs between tools where someone re-types things or a job sits waiting.",
-        "Can I ask: does it talk to the rest of your setup?"
+        "Great, most of the folks I work with do, and most only use a slice of what they're paying for.",
+        "I'm not selling software. A lot of my work is setting up what you already pay for, and fixing the handoffs between tools where someone re-types things or a job sits waiting.",
+        "Does what you have talk to the rest of your setup?"
       ],
       "why": "Agree, then move to the gaps between tools. That's where the pain usually is.",
       "paths": [
@@ -134,6 +272,19 @@
         { "label": "They named something, keep talking", "next": "resume" },
         { "label": "Got the email, follow up in 2 days", "next": "close_callback" },
         { "label": "Brush-off, polite exit", "next": "close_exit" }
+      ]
+    },
+    "bad_experience": {
+      "label": "Tried consultants before",
+      "say": [
+        "Ugh, I hear that a lot. What happened?",
+        "That's why the first step is a flat $750 with a one-page report. You see exactly how I think before you spend anything real, and you keep the plan either way."
+      ],
+      "why": "Let them vent. Listening is most of the answer. Then point out that the audit is small and capped.",
+      "paths": [
+        { "label": "Back to where we were", "next": "resume" },
+        { "label": "Go to close", "next": "close" },
+        { "label": "Still burned, polite exit", "next": "close_exit" }
       ]
     },
     "not_interested": {

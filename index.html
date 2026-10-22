@@ -25,6 +25,7 @@
       <input id="business" placeholder="Business name" autocomplete="off">
       <input id="contact" placeholder="Contact name" autocomplete="off">
       <input id="phone" placeholder="Phone" autocomplete="off">
+      <input id="hook" placeholder="Hook (from lead sheet)" autocomplete="off" title="Shows up in the opener as &quot;I noticed …&quot;">
       <span id="timer" class="timer" title="Call time (starts on first click or keystroke)">–:––</span>
       <button id="newCall" class="btn">New call</button>
       <button id="logBtn" class="btn">Call log</button>
@@ -51,13 +52,14 @@
           <span class="spacer"></span>
           <button id="toClose" class="btn btn-accent">Wrap up → close</button>
         </div>
-        <p class="hint">Keys: <kbd>1</kbd>–<kbd>9</kbd> pick an answer · <kbd>←</kbd> back · <kbd>Esc</kbd> close panel</p>
+        <p class="hint">Keys: <kbd>1</kbd>–<kbd>9</kbd> pick an answer · <kbd>←</kbd> back · <kbd>D</kbd> go deeper · <kbd>Esc</kbd> close panel · Click a pain to ★ it as the main one</p>
       </main>
 
       <aside class="side">
         <section class="panel">
           <h2>Pain summary <span id="painCount" class="count">0</span></h2>
           <div id="wish" class="wish" hidden></div>
+          <div id="cost" class="wish" hidden></div>
           <ul id="painList" class="pains"></ul>
           <form id="addPain" class="addpain">
             <input id="addPainInput" placeholder="Add a pain you heard…" autocomplete="off">
@@ -80,6 +82,7 @@
     </div>
 
     <footer class="objbar">
+      <div id="probeButtons" class="objbuttons"></div>
       <span class="objbar-label">Objection:</span>
       <div id="objButtons" class="objbuttons"></div>
     </footer>
@@ -88,10 +91,11 @@
   <!-- Objection panel -->
   <div id="overlay" class="overlay" hidden>
     <div class="sheet" role="dialog" aria-labelledby="objTitle">
-      <div class="crumb">Objection</div>
+      <div id="objKind" class="crumb">Objection</div>
       <h2 id="objTitle" class="question"></h2>
       <div id="objSay" class="say"></div>
       <p id="objWhy" class="why"></p>
+      <label id="objCapture" class="capture" hidden></label>
       <div id="objPaths" class="answers"></div>
     </div>
   </div>

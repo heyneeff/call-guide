@@ -89,6 +89,7 @@ function merge(common, meta) {
     id: meta.id,
     label: meta.label,
     start: ind.start,
+    closeNudgeAt: ind.closeNudgeAt ?? common.closeNudgeAt ?? 2,
     sections: ind.sections || [],
     vars: { ...(common.vars || {}), ...(ind.vars || {}) },
     anchors: { ...(common.anchors || {}), ...(ind.anchors || {}) },
@@ -139,9 +140,10 @@ function newCall() {
     endedAt: null,
     industry: app.script.id,
     industryLabel: app.script.label,
-    business: '', contact: '', phone: '', notes: '',
+    business: '', contact: '', phone: '', hook: '', notes: '', cost: '',
     stack: [{ node: app.script.start }],
     dismissed: [],
+    mainPain: null,
     manualPains: [],
     objections: [],
     outcome: null, outcomeLabel: '', followUpAt: '',
@@ -153,7 +155,7 @@ const currentNode = () => app.script.nodes[step().node];
 const closeId = () => resolve(app.script, '@close') || 'close';
 
 function hasContent(c) {
-  return !!(c.business || c.contact || c.phone || c.notes || c.stack.length > 1 || c.manualPains.length);
+  return !!(c.business || c.contact || c.phone || c.notes || c.cost || c.stack.length > 1 || c.manualPains.length);
 }
 
 // The clock starts on the first real interaction, not when the blank call was created.
@@ -168,11 +170,17 @@ function pains(c = app.call) {
   for (const s of c.stack) {
     for (const t of s.pains || []) {
       if (out.has(t) || c.dismissed.includes(t)) continue;
-      out.set(t, { tag: t, label: app.script?.painTags[t]?.label || t, section: s.section || '' });
+      const def = app.script?.painTags[t] || {};
+      out.set(t, { tag: t, label: def.label || t, tip: def.tip || '', section: s.section || '' });
     }
   }
   for (const m of c.manualPains) out.set('m:' + m, { tag: 'm:' + m, label: m, section: 'Added by you', manual: true });
-  return [...out.values()];
+  // The starred pain leads: it's what the close names first.
+  const list = [...out.values()];
+  const i = list.findIndex((p) => p.tag === c.mainPain);
+  if (i > 0) list.unshift(...list.splice(i, 1));
+  if (i >= 0) list[0].main = true;
+  return list;
 }
 
 function wish(c = app.call) {
@@ -210,12 +218,14 @@ function joinList(xs) {
 // so "I'd start with {{topPain}}." disappears when no pain is tagged yet.
 function fill(text) {
   const c = app.call;
-  const p = pains().map((x) => lcFirst(x.label));
+  const list = pains();
+  const p = list.map((x) => lcFirst(x.label));
   const vars = {
     ...app.script.vars,
     me: app.settings.me, company: app.settings.company,
-    business: c.business, contact: c.contact, phone: c.phone,
+    business: c.business, contact: c.contact, phone: c.phone, hook: c.hook, cost: c.cost,
     topPain: p[0] || '', pains: joinList(p.slice(0, 3)), wish: wish(),
+    tip: list.find((x) => x.tip)?.tip || app.script.vars.tipFallback || '',
   };
   let drop = false;
   const out = String(text).replace(/\{\{\s*(\w+)\s*(?:\|([^}]*))?\}\}/g, (m, k, fb) => {
@@ -291,18 +301,30 @@ function finishCall(n) {
 function openObjection(id) {
   const o = app.script.objections[id];
   if (!o) return;
+  const probe = o.kind === 'probe';
   touch();
-  app.call.objections.push(o.label);
+  if (!probe) app.call.objections.push(o.label);
   save();
   renderSide();
-  $('#objTitle').textContent = `“${o.label}”`;
+  $('#objKind').textContent = probe ? 'Go deeper' : 'Objection';
+  $('#objTitle').textContent = probe ? 'Pain funnel: one question at a time' : `“${o.label}”`;
   renderSay($('#objSay'), o.say);
   renderWhy($('#objWhy'), o.why);
+  const cap = $('#objCapture');
+  cap.hidden = !o.capture;
+  if (o.capture) {
+    const field = o.capture.field;
+    cap.replaceChildren(el('span', {}, o.capture.label), el('input', {
+      type: 'text', value: app.call[field] || '', placeholder: o.capture.placeholder || '',
+      oninput: (e) => { app.call[field] = e.target.value; save(); renderSide(); },
+    }));
+  }
   $('#objPaths').replaceChildren(...(o.paths || []).map((p, i) => el('button', {
     class: 'answer',
     onclick: () => {
       closeObjection();
       if (p.next !== 'resume') go(p.next, { label: `${o.label} → ${p.label}`, pains: p.pains });
+      else renderNode(); // captured cost may change the say lines
     },
   }, el('kbd', {}, String(i + 1)), el('span', { class: 'label' }, p.label))));
   $('#overlay').hidden = false;
@@ -373,7 +395,12 @@ function renderNode() {
 
   renderEnd(n);
   $('#back').disabled = app.call.stack.length <= 1;
-  $('#toClose').hidden = n.type === 'end' || step().node === closeId();
+  // Once there's enough pain, the close button gets loud: don't overstay the call.
+  const btn = $('#toClose');
+  const nudge = count >= app.script.closeNudgeAt;
+  btn.hidden = n.type === 'end' || n.section === app.script.nodes[closeId()]?.section;
+  btn.classList.toggle('nudge', nudge);
+  btn.textContent = nudge ? `${count} pains found: bridge to close →` : 'Wrap up → close';
 }
 
 function renderEnd(n) {
@@ -400,8 +427,9 @@ function renderSide() {
   const list = pains();
   $('#painCount').textContent = list.length;
   $('#painList').replaceChildren(...(list.length
-    ? list.map((p) => el('li', {},
-        el('span', { class: 'plabel' }, p.label),
+    ? list.map((p) => el('li', { class: p.main ? 'main' : '' },
+        el('button', { class: 'plabel', title: 'Star as the main pain (the close leads with it)', onclick: () => toggleMain(p) },
+          p.main ? '★ ' + p.label : p.label),
         el('span', { class: 'psec' }, p.section),
         el('button', { class: 'x', title: 'Remove', onclick: () => dismissPain(p) }, '×')))
     : [el('li', { class: 'empty' }, "Nothing yet. Pains you uncover show up here.")]));
@@ -409,6 +437,9 @@ function renderSide() {
   const w = wish();
   $('#wish').hidden = !w;
   $('#wish').replaceChildren(el('b', {}, 'If one thing ran itself'), w);
+
+  $('#cost').hidden = !app.call.cost;
+  $('#cost').replaceChildren(el('b', {}, 'What it costs them'), app.call.cost || '');
 
   const objs = app.call.objections;
   $('#objHeard').hidden = !objs.length;
@@ -419,6 +450,12 @@ function renderSide() {
     : '';
 }
 
+function toggleMain(p) {
+  app.call.mainPain = p.main ? null : p.tag;
+  save();
+  render();
+}
+
 function dismissPain(p) {
   if (p.manual) app.call.manualPains = app.call.manualPains.filter((m) => 'm:' + m !== p.tag);
   else app.call.dismissed.push(p.tag);
@@ -427,7 +464,7 @@ function dismissPain(p) {
 }
 
 function fillCallFields() {
-  for (const f of ['business', 'contact', 'phone', 'notes']) $('#' + f).value = app.call[f] || '';
+  for (const f of ['business', 'contact', 'phone', 'hook', 'notes']) $('#' + f).value = app.call[f] || '';
 }
 
 function renderWarnings(warnings) {
@@ -481,6 +518,8 @@ function renderLog() {
     const rows = [
       ['Contact', [c.contact, c.phone].filter(Boolean).join(' · ')],
       ['Follow-up', c.followUpAt && fmt(c.followUpAt)],
+      ['Hook', c.hook],
+      ['What it costs them', c.cost],
       ['If one thing ran itself', c.wishText],
       ['Pains', c.painLabels.map((p) => '• ' + p).join('\n')],
       ['Objections', c.objections.join(', ')],
@@ -500,13 +539,13 @@ function renderLog() {
 
 function exportCSV() {
   const header = ['started_at', 'ended_at', 'minutes', 'industry', 'business', 'contact', 'phone', 'outcome',
-    'follow_up_at', 'pain_count', 'pains', 'owner_wish', 'objections', 'path', 'notes'];
+    'follow_up_at', 'hook', 'pain_count', 'pains', 'cost_of_problem', 'owner_wish', 'objections', 'path', 'notes'];
   const rows = allCalls().map((c) => [
     c.startedAt, c.endedAt || '',
     c.endedAt ? Math.round((new Date(c.endedAt) - new Date(c.startedAt)) / 6000) / 10 : '',
     c.industryLabel, c.business, c.contact, c.phone,
     c.live ? 'In progress' : c.outcomeLabel || c.outcome,
-    c.followUpAt, c.painLabels.length, c.painLabels.join('; '), c.wishText,
+    c.followUpAt, c.hook, c.painLabels.length, c.painLabels.join('; '), c.cost, c.wishText,
     c.objections.join('; '), c.path.join(' > '), c.notes,
   ]);
   const csv = '﻿' + [header, ...rows]
@@ -530,6 +569,13 @@ function selectIndustry(id) {
   renderWarnings(validate(app.script));
 }
 
+function renderObjBar() {
+  const entries = Object.entries(app.script.objections);
+  const btn = ([id, o]) => el('button', { class: o.kind === 'probe' ? 'probe' : '', onclick: () => openObjection(id) }, o.label);
+  $('#probeButtons').replaceChildren(...entries.filter(([, o]) => o.kind === 'probe').map(btn));
+  $('#objButtons').replaceChildren(...entries.filter(([, o]) => o.kind !== 'probe').map(btn));
+}
+
 let wired = false;
 function start() {
   $('#loader').hidden = true;
@@ -544,8 +590,7 @@ function start() {
   fillCallFields();
   $('#setMe').value = app.settings.me || '';
   $('#setCompany').value = app.settings.company || '';
-  $('#objButtons').replaceChildren(...Object.entries(app.script.objections).map(([id, o]) =>
-    el('button', { onclick: () => openObjection(id) }, o.label)));
+  renderObjBar();
 
   if (!wired) wire();
   render();
@@ -554,7 +599,7 @@ function start() {
 function wire() {
   wired = true;
 
-  for (const f of ['business', 'contact', 'phone', 'notes']) {
+  for (const f of ['business', 'contact', 'phone', 'hook', 'notes']) {
     $('#' + f).addEventListener('input', (e) => {
       touch();
       app.call[f] = e.target.value;
@@ -577,8 +622,7 @@ function wire() {
     app.call.industryLabel = app.script.label;
     app.call.stack = [{ node: app.script.start }];
     app.call.dismissed = [];
-    $('#objButtons').replaceChildren(...Object.entries(app.script.objections).map(([id, o]) =>
-      el('button', { onclick: () => openObjection(id) }, o.label)));
+    renderObjBar();
     save();
     render();
   });
@@ -622,6 +666,8 @@ function wire() {
       const btns = (objOpen ? $('#objPaths') : $('#answers')).querySelectorAll('button');
       btns[Number(e.key) - 1]?.click();
       e.preventDefault();
+    } else if (!objOpen && e.key.toLowerCase() === 'd') {
+      $('#probeButtons button')?.click();
     } else if (!objOpen && (e.key === 'ArrowLeft' || e.key === 'Backspace')) {
       back();
       e.preventDefault();
