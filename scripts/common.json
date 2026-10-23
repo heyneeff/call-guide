@@ -9,14 +9,15 @@
       "question": "Story opener: your background, then the free offer",
       "say": [
         "Hi, is this {{contact|the owner}}?",
-        "Hey, this is {{me}}. Quick cold call, I'll be brief.",
-        "My background's in systems and efficiency. I've been building the operations side for a solar and electrical contractor, and it showed me that most {{trade}} run on chaos. Not because anyone's doing it wrong. The work just moves faster than anyone can write it down.",
+        "Hey, this is {{me}}. Quick cold call.",
+        "I specialize in fixing operational bottlenecks for {{trade}}, specifically how field communication and scheduling quietly eat into your margins.",
+        "Building the operations side for a solar and electrical contractor showed me most {{trade}} run on chaos. Not because anyone's doing it wrong. The work just moves faster than anyone can write it down.",
         "{{hook}}",
-        "So I'm offering local {{trade}} a free {{offerName}}: one morning with your team, and I map exactly {{offerGoal}}. You keep the map either way.",
+        "So I'm running a free 20-minute {{offerName}} for local {{trade}}. I ask you ten sharp questions about how a job moves, and within a day you get a one-page map of {{offerGoal}}, plus the first fix. You keep it either way.",
         "{{offerWhy}}",
         "Does that sound like your shop, or are you running pretty tight?"
       ],
-      "why": "The offer is built with Hormozi's MAGIC formula: a reason to act now (free, before the season turns), the avatar (local owners in their trade), the goal (see where jobs and money get stuck), a time box (one morning) and a container (the Chaos Check). End on a question so they talk next.",
+      "why": "The offer is built with Hormozi's MAGIC formula: a reason to act now (free, before the season turns), the avatar (local owners in their trade), the goal (see where jobs and money get stuck), a time box (20 minutes, map within a day) and a container (the Ops Sweep). You lead as the expert running a diagnostic, not a student asking for a favor.. End on a question so they talk next.",
       "answers": [
         { "label": "\"Yeah, that's us\"", "next": "story_dig" },
         { "label": "\"What is it exactly? What's the catch?\"", "next": "story_explain" },
@@ -59,13 +60,14 @@
       "section": "Opener",
       "question": "Explain the {{offerName}}: no catch",
       "say": [
-        "No catch. I come out one morning, ideally a busy one, and watch a real job move from the office to the field and back.",
-        "At the end you get a one-page map: where things get stuck, and one fix you can do yourself.",
-        "If it ever makes sense to have me fix the bigger stuff, that's a paid project, and I'll bring it up once. You decide."
+        "No catch. Twenty minutes on the phone. I walk through how a job moves from the first call to the final payment, and I'm listening for where it stalls.",
+        "Within a day you get a one-page map: where things get stuck, roughly what it's costing you, and the first fix you can do yourself.",
+        "If the map shows something worth digging into, the next step is a paid on-site audit. I'll bring it up once. You decide."
       ],
       "why": "Saying the paid part out loud is what makes the free part believable.",
       "answers": [
-        { "label": "OK, let's do it", "next": "close_shadow" },
+        { "label": "OK, run it now", "next": "@process" },
+        { "label": "OK, book a time", "next": "close_sweep" },
         { "label": "\"How much is the paid part?\"", "objection": "how_much" },
         { "label": "Maybe later", "next": "close_callback" },
         { "label": "Not for us", "next": "close_exit" }
@@ -77,16 +79,41 @@
       "question": "Book the {{offerName}}",
       "say": [
         "That's exactly the kind of thing the {{offerName}} finds.",
-        "Want to grab a morning for it? Busy is better. I want to see the real thing, not the clean version."
+        "Got 20 minutes right now? Or let's put it on the calendar."
       ],
-      "why": "Ask for the morning right away while the pain is fresh. If they're clearly hurting and asking for help, go straight to the audit.",
+      "why": "Offer to run it now first: the sweep IS the discovery, and it flows straight into the audit close. If now's bad, book an exact time. Never leave it at 'sometime'.",
       "answers": [
-        { "label": "Yes, book it", "next": "close_shadow", "minPains": 0 },
+        { "label": "Run it now", "next": "@process", "minPains": 0 },
+        { "label": "Book a time", "next": "close_sweep" },
         { "label": "\"What's the catch?\"", "next": "story_explain" },
         { "label": "Real pain, wants help now: offer the audit", "next": "audit_ask", "minPains": 3 },
         { "label": "Not now, stay in touch", "next": "close_callback" },
         { "label": "Not a fit", "next": "close_exit" }
       ]
+    },
+
+    "close_sweep": {
+      "section": "Close",
+      "type": "end",
+      "outcome": "sweep",
+      "outcomeLabel": "Ops Sweep booked",
+      "question": "Book the {{offerName}}",
+      "say": [
+        "Great. What's better, tomorrow morning or later this week?",
+        "Twenty minutes, by phone. Have whoever knows the jobs best close by.",
+        "Send me a text with the best email and I'll send the invite."
+      ],
+      "why": "Book an exact time and send the invite while you're still on the phone. Run the sweep from this guide: start a new call and jump to the process section. Send the one-page map within a day, and end it with one offer of the audit.",
+      "checklist": [
+        "Lock the day and time, and send the invite now",
+        "Confirm the best number and email",
+        "Note their biggest pain so you open the sweep with it",
+        "After the sweep, send the one-page map within 24 hours"
+      ],
+      "capture": {
+        "label": "Sweep date & time",
+        "type": "datetime-local"
+      }
     },
 
     "learn_opener": {
