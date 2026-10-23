@@ -26,7 +26,7 @@ const app = {
   industries: [],   // [{ id, label, file, data }]
   script: null,     // merged common + industry
   call: null,       // the live call
-  settings: { me: 'Neeff', company: '', mode: 'story', ...store.get(KEYS.settings, {}) },
+  settings: { me: 'Lewis', company: '', mode: 'story', ...store.get(KEYS.settings, {}) },
 };
 
 // ---------- loading ----------
