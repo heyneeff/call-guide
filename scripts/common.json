@@ -4,6 +4,91 @@
   "closeNudgeAt": 2,
 
   "nodes": {
+    "story_opener": {
+      "section": "Opener",
+      "question": "Story opener: your background, then the free offer",
+      "say": [
+        "Hi, is this {{contact|the owner}}?",
+        "Hey, this is {{me}}. Quick cold call, I'll be brief.",
+        "My background's in systems and efficiency. I've been building the operations side for a solar and electrical contractor, and it showed me that most {{trade}} run on chaos. Not because anyone's doing it wrong. The work just moves faster than anyone can write it down.",
+        "{{hook}}",
+        "So I'm offering local {{trade}} a free {{offerName}}: one morning with your team, and I map exactly {{offerGoal}}. You keep the map either way.",
+        "{{offerWhy}}",
+        "Does that sound like your shop, or are you running pretty tight?"
+      ],
+      "why": "The offer is built with Hormozi's MAGIC formula: a reason to act now (free, before the season turns), the avatar (local owners in their trade), the goal (see where jobs and money get stuck), a time box (one morning) and a container (the Chaos Check). End on a question so they talk next.",
+      "answers": [
+        { "label": "\"Yeah, that's us\"", "next": "story_dig" },
+        { "label": "\"What is it exactly? What's the catch?\"", "next": "story_explain" },
+        { "label": "\"We're pretty tight\"", "next": "story_tight" },
+        { "label": "\"Are you selling something?\"", "next": "learn_honest" },
+        { "label": "Wrong person: get a name and time", "next": "close_callback" },
+        { "label": "Voicemail: hang up, try again in 2 days", "next": "close_callback" },
+        { "label": "Bad time", "objection": "too_busy" },
+        { "label": "Not interested", "objection": "not_interested" }
+      ]
+    },
+
+    "story_dig": {
+      "section": "Opener",
+      "question": "Where does the chaos show up most?",
+      "say": "Ha, you're not alone. Where does it show up most for you right now?",
+      "why": "One question, then let them talk. If they go on about it, open Go deeper. Write their exact words in Notes, because you'll use them at the visit.",
+      "answers": [
+        { "label": "Knowing where every job stands", "next": "story_book", "wish": "knowing where every job stands" },
+        { "label": "Getting paid / money owed", "next": "story_book", "wish": "getting paid faster" },
+        { "label": "Customers calling for updates", "next": "story_book", "wish": "fewer customer calls" },
+        { "label": "Scheduling and crews", "next": "story_book", "wish": "scheduling" },
+        { "label": "Leads and quotes slipping", "next": "story_book", "wish": "lead and quote follow-up" },
+        { "label": "Everything runs through me", "next": "story_book", "wish": "not being the bottleneck" }
+      ]
+    },
+
+    "story_tight": {
+      "section": "Opener",
+      "question": "\"We're pretty tight\": get curious",
+      "say": "Love that, it's rare. Mind if I ask how you keep it that way? I'm genuinely curious.",
+      "why": "Don't argue. Tight shops love explaining their system, and the gaps show up while they talk.",
+      "answers": [
+        { "label": "Sure", "next": "@learn" },
+        { "label": "No thanks", "next": "close_exit" }
+      ]
+    },
+
+    "story_explain": {
+      "section": "Opener",
+      "question": "Explain the {{offerName}}: no catch",
+      "say": [
+        "No catch. I come out one morning, ideally a busy one, and watch a real job move from the office to the field and back.",
+        "At the end you get a one-page map: where things get stuck, and one fix you can do yourself.",
+        "If it ever makes sense to have me fix the bigger stuff, that's a paid project, and I'll bring it up once. You decide."
+      ],
+      "why": "Saying the paid part out loud is what makes the free part believable.",
+      "answers": [
+        { "label": "OK, let's do it", "next": "close_shadow" },
+        { "label": "\"How much is the paid part?\"", "objection": "how_much" },
+        { "label": "Maybe later", "next": "close_callback" },
+        { "label": "Not for us", "next": "close_exit" }
+      ]
+    },
+
+    "story_book": {
+      "section": "Close",
+      "question": "Book the {{offerName}}",
+      "say": [
+        "That's exactly the kind of thing the {{offerName}} finds.",
+        "Want to grab a morning for it? Busy is better. I want to see the real thing, not the clean version."
+      ],
+      "why": "Ask for the morning right away while the pain is fresh. If they're clearly hurting and asking for help, go straight to the audit.",
+      "answers": [
+        { "label": "Yes, book it", "next": "close_shadow", "minPains": 0 },
+        { "label": "\"What's the catch?\"", "next": "story_explain" },
+        { "label": "Real pain, wants help now: offer the audit", "next": "audit_ask", "minPains": 3 },
+        { "label": "Not now, stay in touch", "next": "close_callback" },
+        { "label": "Not a fit", "next": "close_exit" }
+      ]
+    },
+
     "learn_opener": {
       "section": "Opener",
       "question": "Learning opener: ask for advice, not a meeting",

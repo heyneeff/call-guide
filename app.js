@@ -26,7 +26,7 @@ const app = {
   industries: [],   // [{ id, label, file, data }]
   script: null,     // merged common + industry
   call: null,       // the live call
-  settings: { me: 'Neeff', company: '', mode: 'learning', ...store.get(KEYS.settings, {}) },
+  settings: { me: 'Neeff', company: '', mode: 'story', ...store.get(KEYS.settings, {}) },
 };
 
 // ---------- loading ----------
@@ -150,8 +150,12 @@ function newCall() {
   };
 }
 
-// Learning mode swaps the pitch opener for the ask-for-advice opener (common.json).
-const startNode = () => (app.settings.mode === 'learning' && app.script.nodes.learn_opener ? 'learn_opener' : app.script.start);
+// Story and Learning modes swap the pitch opener for a shared opener in common.json.
+const MODE_START = { story: 'story_opener', learning: 'learn_opener' };
+const startNode = () => {
+  const id = MODE_START[app.settings.mode];
+  return id && app.script.nodes[id] ? id : app.script.start;
+};
 const step = () => app.call.stack[app.call.stack.length - 1];
 const currentNode = () => app.script.nodes[step().node];
 const closeId = () => resolve(app.script, '@close') || 'close';
