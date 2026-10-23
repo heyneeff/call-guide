@@ -3,7 +3,7 @@
 
   "start": "opener",
 
-  "vars": { "trade": "roofers", "finishLine": "finished, paid job", "offerName": "Ops Sweep", "offerGoal": "where your jobs and your money get stuck" },
+  "vars": { "trade": "roofers", "finishLine": "finished, paid job", "offerName": "Ops Sweep", "offerGoal": "the top three places your jobs and your money are leaking" },
 
   "anchors": {
     "learn": "owner_week",

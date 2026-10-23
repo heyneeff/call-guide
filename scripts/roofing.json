@@ -5,7 +5,7 @@
     "trade": "roofers",
     "finishLine": "paid-in-full roof",
     "proof": "I'm doing this right now for a contractor in Arizona. Same problem: the work moves, but the status and the money don't.",
-    "offerName": "Ops Sweep", "offerGoal": "where your jobs and your money get stuck", "offerWhy": "I'm doing them now, before the snow, so whatever I find gets fixed before spring.", "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in, how long it's been there, and what money is still owed on it."
+    "offerName": "Ops Sweep", "offerGoal": "the top three places your jobs and your money are leaking", "offerWhy": "I'm doing them now, before the snow, so whatever I find gets fixed before spring.", "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in, how long it's been there, and what money is still owed on it."
   },
 
   "anchors": {

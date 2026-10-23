@@ -4,7 +4,7 @@
     "trade": "solar installers",
     "finishLine": "live system with PTO",
     "proof": "I'm doing exactly this right now for a solar and electrical contractor in Arizona.",
-    "offerName": "Ops Sweep", "offerGoal": "where your jobs get stuck between signing and PTO", "offerWhy": "I'm doing them now, before year-end, so you go into next year clean.", "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in and how long it's been there."
+    "offerName": "Ops Sweep", "offerGoal": "the top three places your jobs stall between signing and PTO", "offerWhy": "I'm doing them now, before year-end, so you go into next year clean.", "tipFallback": "start a 10-minute Monday review of every open job: what stage it's in and how long it's been there."
   },
   "anchors": {
     "learn": "learn_q1",

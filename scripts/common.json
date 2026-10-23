@@ -13,11 +13,11 @@
         "I specialize in fixing operational bottlenecks for {{trade}}, specifically how field communication and scheduling quietly eat into your margins.",
         "Building the operations side for a solar and electrical contractor showed me most {{trade}} run on chaos. Not because anyone's doing it wrong. The work just moves faster than anyone can write it down.",
         "{{hook}}",
-        "So I'm running a free 20-minute {{offerName}} for local {{trade}}. I ask you ten sharp questions about how a job moves, and within a day you get a one-page map of {{offerGoal}}, plus the first fix. You keep it either way.",
+        "So I'm running a free 20-minute {{offerName}} for local {{trade}}. Ten sharp questions about how a job moves, and before we hang up you'll know {{offerGoal}}.",
         "{{offerWhy}}",
         "Does that sound like your shop, or are you running pretty tight?"
       ],
-      "why": "The offer is built with Hormozi's MAGIC formula: a reason to act now (free, before the season turns), the avatar (local owners in their trade), the goal (see where jobs and money get stuck), a time box (20 minutes, map within a day) and a container (the Ops Sweep). You lead as the expert running a diagnostic, not a student asking for a favor.. End on a question so they talk next.",
+      "why": "The offer is built with Hormozi's MAGIC formula: a reason to act now (free, before the season turns), the avatar (local owners in their trade), the goal (see where jobs and money get stuck), a time box (20 minutes, answer before you hang up) and a container (the Ops Sweep). You lead as the expert running a diagnostic, not a student asking for a favor.. End on a question so they talk next.",
       "answers": [
         { "label": "\"Yeah, that's us\"", "next": "story_dig" },
         { "label": "\"What is it exactly? What's the catch?\"", "next": "story_explain" },
@@ -61,8 +61,8 @@
       "question": "Explain the {{offerName}}: no catch",
       "say": [
         "No catch. Twenty minutes on the phone. I walk through how a job moves from the first call to the final payment, and I'm listening for where it stalls.",
-        "Within a day you get a one-page map: where things get stuck, roughly what it's costing you, and the first fix you can do yourself.",
-        "If the map shows something worth digging into, the next step is a paid on-site audit. I'll bring it up once. You decide."
+        "Before we hang up, I tell you straight where your top leaks are and roughly what they're costing you.",
+        "If one of them is big, the next step is my paid Field Efficiency Audit. I'll bring it up once. You decide."
       ],
       "why": "Saying the paid part out loud is what makes the free part believable.",
       "answers": [
@@ -103,12 +103,11 @@
         "Twenty minutes, by phone. Have whoever knows the jobs best close by.",
         "Send me a text with the best email and I'll send the invite."
       ],
-      "why": "Book an exact time and send the invite while you're still on the phone. Run the sweep from this guide: start a new call and jump to the process section. Send the one-page map within a day, and end it with one offer of the audit.",
+      "why": "Book an exact time and send the invite while you're still on the phone. Run the sweep from this guide: start a new call and jump to the process section. Tell them their top leaks before you hang up, then ask once for the Field Efficiency Audit. Nothing to write up afterward: the free part stays on the call.",
       "checklist": [
         "Lock the day and time, and send the invite now",
         "Confirm the best number and email",
-        "Note their biggest pain so you open the sweep with it",
-        "After the sweep, send the one-page map within 24 hours"
+        "Note their biggest pain so you open the sweep with it"
       ],
       "capture": {
         "label": "Sweep date & time",
@@ -224,13 +223,13 @@
 
     "audit_ask": {
       "section": "Close",
-      "question": "Ask for the audit, then stop talking",
+      "question": "Ask for the Field Efficiency Audit, then stop talking",
       "say": [
-        "Here's what I'd suggest. I do a flat $750 operations audit: about an hour with you, I map how a lead becomes a {{finishLine}}, and you get a one-page report of where it's leaking and what to fix first.",
-        "I'd start with {{topPain}}.",
-        "{{proof}}",
-        "If you have me build the fix within 30 days, the $750 comes off the build price.",
-        "Do you have an hour Tuesday or Thursday?"
+        "Here's what I'd suggest. No sales meeting, no slides. I do one thing: a 90-minute Field Efficiency Audit.",
+        "I ride out to a job site with you, map how a job moves from the field to the office to a {{finishLine}}, and hand you a one-page blueprint showing exactly where your team is burning cash. I'd start with {{topPain}}.",
+        "It's a flat $750, and it comes off the build price if you have me fix it within 30 days.",
+        "I only take a couple of these a month, before the winter slowdown. The blueprint is yours either way, to use with me or without me.",
+        "Do you have a job site walk scheduled Tuesday or Thursday morning?"
       ],
       "why": "Offer two specific days, then let the silence sit. Their first answer is usually an objection, not a no. Handle it and ask again.",
       "answers": [
@@ -251,13 +250,13 @@
         "Fair question.",
         "You told me {{topPain}} is costing you {{cost}}. The audit is about putting a number on that and a plan to stop it.",
         "And if you have me build the fix within 30 days, the $750 comes off the build, so it doesn't cost you anything extra.",
-        "If you'd rather see how I think first, let's do 15 minutes on a screen share. You show me your job list and I'll point out what I see. Then you decide."
+        "If it's a timing thing, let's put it on the calendar for when it makes sense."
       ],
-      "why": "Don't drop the price. Tie it to the cost they already admitted, then offer a smaller yes. A 15-minute walkthrough still counts as a next step.",
+      "why": "Don't drop the price, and don't trade it for free work. Tie it to the cost they already admitted. If they need time, get a date, not a discount.",
       "answers": [
         { "label": "OK, book the audit", "next": "close_audit" },
-        { "label": "Take the 15-minute walkthrough", "next": "close_callback" },
-        { "label": "Offer a free shadow visit instead", "next": "close_shadow" },
+        { "label": "Book it for a later date", "next": "close_audit" },
+        { "label": "Needs to think: set a callback", "next": "close_callback" },
         { "label": "Still no", "next": "close_exit" }
       ]
     },
@@ -327,19 +326,19 @@
       "section": "Close",
       "type": "end",
       "outcome": "audit",
-      "outcomeLabel": "Audit booked",
+      "outcomeLabel": "Field Efficiency Audit booked",
       "question": "Lock it in",
       "say": [
         "Great. I'm sending the invite now. What's the best email?",
-        "One thing up front: at the end of the hour, if there's something worth fixing, we'll talk about what a build looks like. If not, no hard feelings. Fair?",
-        "And what would make that hour a win for you?"
+        "One thing up front: at the end of the walk, if there's something worth fixing, we'll talk about what a build looks like. If not, no hard feelings. Fair?",
+        "And what would make that morning a win for you?"
       ],
       "why": "Agree up front on what happens after the audit, so nobody is surprised by a pitch at the end. Ask what would make the hour a win, and write their answer in Notes. Open the report with it.",
       "checklist": [
         "Send the invite while you're still on the phone",
         "Get the best email",
         "Who else should be there (ops manager, PM, office)?",
-        "Ask them to have their job list or spreadsheet open",
+        "Pick a real job site to walk, and ask them to bring their job list or spreadsheet",
         "Write down what a win looks like for them"
       ],
       "capture": { "label": "Audit date & time", "type": "datetime-local" }
@@ -464,7 +463,7 @@
     "how_much": {
       "label": "How much is it?",
       "say": [
-        "Fair question. It starts with a flat $750 audit, about an hour, and you get a one-page report of what's leaking and how to fix it.",
+        "Fair question. It starts with a flat $750 Field Efficiency Audit: 90 minutes on a job site with you, and a one-page blueprint of where you're burning cash.",
         "If you want me to build the fix, builds run $5–8k, and the $750 comes off that price if you go ahead within 30 days.",
         "But I'd rather find out if there's anything worth fixing first. Can I ask a couple more questions?"
       ],
