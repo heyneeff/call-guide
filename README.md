@@ -29,6 +29,7 @@ export the CSV now and then as a backup.
 
 ## During a call
 
+- Press **Terms** (or <kbd>T</kbd>) for a searchable cheat sheet of industry words: supplements, depreciation, PTO, interconnection and more. Each industry file has a `glossary`; shared terms live in `common.json`.
 - Pick an **opener** next to the industry. **Story** (the default) gives your background in systems and efficiency, then offers a free 20-minute phone **Ops Sweep** (ten questions, and they hear their top leaks before you hang up; nothing to write up afterward). The paid step is the $750 **Field Efficiency Audit**: a 90-minute job site ride-out that ends with a one-page blueprint, built with Hormozi's MAGIC offer formula. Each industry sets the offer wording with the `offerName`, `offerGoal` and `offerWhy` vars. **Learning** is the gentler version: you ask for advice, ask two questions, and offer a shadow visit, with the audit as the second option. **Standard** pitches the audit directly.
 - Type the **business name** (and contact/phone) at the top, plus a **hook** from the lead sheet's Score Reasons (e.g. "340 reviews but no online quote form"). The hook shows up in the opener. The timer starts on your first click or keystroke.
 - Click an answer, or press **1–9**. **←** or **Backspace** goes back (and un-tags that step's pains).

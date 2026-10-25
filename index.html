@@ -33,6 +33,7 @@
       <input id="hook" placeholder="Hook (from lead sheet)" autocomplete="off" title="Shows up in the opener as &quot;I noticed …&quot;">
       <span id="timer" class="timer" title="Call time (starts on first click or keystroke)">–:––</span>
       <button id="newCall" class="btn">New call</button>
+      <button id="termsBtn" class="btn" title="Industry terms (T)">Terms</button>
       <button id="logBtn" class="btn">Call log</button>
     </header>
 
@@ -57,7 +58,7 @@
           <span class="spacer"></span>
           <button id="toClose" class="btn btn-accent">Wrap up → close</button>
         </div>
-        <p class="hint">Keys: <kbd>1</kbd>–<kbd>9</kbd> pick an answer · <kbd>←</kbd> back · <kbd>D</kbd> go deeper · <kbd>Esc</kbd> close panel · Click a pain to ★ it as the main one</p>
+        <p class="hint">Keys: <kbd>1</kbd>–<kbd>9</kbd> pick an answer · <kbd>←</kbd> back · <kbd>D</kbd> go deeper · <kbd>T</kbd> terms · <kbd>Esc</kbd> close panel · Click a pain to ★ it as the main one</p>
       </main>
 
       <aside class="side">
@@ -115,6 +116,19 @@
         <button id="closeLog" class="btn">Close</button>
       </div>
       <div id="logList"></div>
+    </div>
+  </div>
+
+  <!-- Terms cheat sheet drawer -->
+  <div id="terms" class="drawer" hidden>
+    <div class="drawer-inner">
+      <div class="drawer-head">
+        <h2>Terms</h2>
+        <span class="spacer"></span>
+        <button id="closeTerms" class="btn">Close</button>
+      </div>
+      <input id="termSearch" class="termsearch" type="search" placeholder="Search, e.g. supplement, PTO" autocomplete="off">
+      <div id="termList"></div>
     </div>
   </div>
 

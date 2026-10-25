@@ -3,6 +3,45 @@
 
   "closeNudgeAt": 2,
 
+  "glossary": {
+    "Your terms": [
+      [
+        "Pipeline / stages",
+        "Where every job is, from lead to paid."
+      ],
+      [
+        "Cycle time",
+        "How long jobs take start to finish (e.g. \"signing to PTO averages 70 days\")."
+      ],
+      [
+        "Bottleneck / stall",
+        "The stage where jobs pile up."
+      ],
+      [
+        "AR / aging",
+        "Accounts receivable: money owed to them, and how old it is."
+      ],
+      [
+        "Close rate",
+        "Percent of quotes that become jobs."
+      ],
+      [
+        "Job costing",
+        "What each job actually cost vs. what they charged."
+      ],
+      [
+        "Handoff",
+        "Info passing between people (field to office). Where things get lost."
+      ]
+    ],
+    "Tip": [
+      [
+        "Don't know a word?",
+        "Ask: \"What do you mean by a redline?\" Asking builds trust. Faking it loses it."
+      ]
+    ]
+  },
+
   "nodes": {
     "story_opener": {
       "section": "Opener",

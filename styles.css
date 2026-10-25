@@ -238,6 +238,16 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .logbody dd { margin: 2px 0 0; white-space: pre-wrap; }
 .logbody .btn { margin-top: 12px; font-size: 13px; }
 .empty-log { color: var(--muted); }
+.termsearch {
+  width: 100%; padding: 10px 12px; margin-bottom: 14px; font: inherit; font-size: 16px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: inherit;
+}
+.termgroup { margin-bottom: 18px; }
+.termgroup h3 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.termgroup dl { margin: 0; display: grid; grid-template-columns: minmax(120px, 34%) 1fr; gap: 8px 14px; font-size: 15px; }
+.termgroup dt { font-weight: 600; }
+.termgroup dd { margin: 0; }
+@media (max-width: 520px) { .termgroup dl { grid-template-columns: 1fr; gap: 2px; } .termgroup dd { margin-bottom: 8px; } }
 
 /* ---------- loader ---------- */
 .loader { max-width: 620px; margin: 10vh auto; padding: 0 16px; }

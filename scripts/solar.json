@@ -54,6 +54,109 @@
       "start": "close"
     }
   ],
+  "glossary": {
+    "Signing to PTO": [
+      [
+        "Site survey",
+        "Checking the roof and electrical panel before design."
+      ],
+      [
+        "Plan set",
+        "The engineering drawings sent for permits."
+      ],
+      [
+        "AHJ",
+        "\"Authority having jurisdiction\": the city or county that issues permits and inspects."
+      ],
+      [
+        "Permit",
+        "The city or county approving the plans."
+      ],
+      [
+        "Interconnection",
+        "The utility (Xcel) approving the connection to the grid. Often the slowest step."
+      ],
+      [
+        "Inspection",
+        "The city signing off on the finished install."
+      ],
+      [
+        "PTO",
+        "Permission to Operate: the utility's final OK to turn the system on. Final payment often waits on it."
+      ],
+      [
+        "Redline / rejection",
+        "The city or utility sends paperwork back for fixes."
+      ],
+      [
+        "MPU",
+        "Main panel upgrade. A common holdup that adds cost."
+      ]
+    ],
+    "The system": [
+      [
+        "kW / kWh",
+        "System size (kilowatts) vs. energy produced (kilowatt-hours)."
+      ],
+      [
+        "Offset",
+        "The percent of the home's power use the system covers."
+      ],
+      [
+        "Net metering",
+        "Bill credit for power sent back to the grid."
+      ],
+      [
+        "Microinverters vs. string inverter",
+        "One small inverter per panel (Enphase) vs. one big one for the system."
+      ],
+      [
+        "ESS / storage",
+        "Battery systems (Powerwall, Enphase battery)."
+      ]
+    ],
+    "Money": [
+      [
+        "TPO / lease / PPA",
+        "Third-party ownership: a company owns the system, the homeowner pays monthly. Most home solar since the homeowner tax credit ended."
+      ],
+      [
+        "Milestones (M1/M2/M3)",
+        "Loan companies pay the installer in stages: signing, install, PTO. Directly tied to cash flow."
+      ],
+      [
+        "Dealer fee",
+        "What the loan company charges the installer."
+      ],
+      [
+        "Service / O&M",
+        "Repair and maintenance work on existing systems."
+      ],
+      [
+        "NABCEP",
+        "The main solar installer certification."
+      ]
+    ],
+    "Their software": [
+      [
+        "Enerflo, OpenSolar",
+        "Solar sales and project management."
+      ],
+      [
+        "Aurora",
+        "System design."
+      ],
+      [
+        "SolarAPP+",
+        "Instant permits in some cities."
+      ],
+      [
+        "CompanyCam",
+        "Job-site photos, shared with the office."
+      ]
+    ]
+  },
+
   "painTags": {
     "lead-cost": {
       "label": "Paying for shared vendor leads"

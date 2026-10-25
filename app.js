@@ -96,6 +96,7 @@ function merge(common, meta) {
     painTags: { ...(common.painTags || {}), ...(ind.painTags || {}) },
     objections: { ...(common.objections || {}), ...(ind.objections || {}) },
     nodes: { ...(common.nodes || {}), ...(ind.nodes || {}) },
+    glossary: { ...(ind.glossary || {}), ...(common.glossary || {}) },
   };
 }
 
@@ -504,6 +505,26 @@ function allCalls() {
   return hasContent(app.call) ? [{ ...snapshot(app.call), live: true }, ...saved] : saved;
 }
 
+// Terms cheat sheet: groups of [term, meaning] from the industry file, then common.json.
+function renderTerms() {
+  const q = $('#termSearch').value.trim().toLowerCase();
+  const groups = Object.entries(app.script.glossary || {})
+    .map(([name, rows]) => [name, rows.filter(([t, m]) => !q || `${t} ${m}`.toLowerCase().includes(q))])
+    .filter(([, rows]) => rows.length);
+  $('#termList').replaceChildren(...(groups.length
+    ? groups.map(([name, rows]) => el('section', { class: 'termgroup' },
+        el('h3', {}, name),
+        el('dl', {}, rows.flatMap(([t, m]) => [el('dt', {}, t), el('dd', {}, m)]))))
+    : [el('p', { class: 'empty-log' }, q ? `Nothing matches "${q}".` : 'No terms for this industry yet.')]));
+}
+
+function openTerms() {
+  $('#termSearch').value = '';
+  renderTerms();
+  $('#terms').hidden = false;
+  $('#termSearch').focus();
+}
+
 function renderLog() {
   const calls = allCalls();
   if (!calls.length) {
@@ -663,10 +684,17 @@ function wire() {
   $('#closeLog').addEventListener('click', () => { $('#drawer').hidden = true; });
   $('#drawer').addEventListener('click', (e) => { if (e.target.id === 'drawer') $('#drawer').hidden = true; });
   $('#exportCsv').addEventListener('click', exportCSV);
+  $('#termsBtn').addEventListener('click', openTerms);
+  $('#closeTerms').addEventListener('click', () => { $('#terms').hidden = true; });
+  $('#terms').addEventListener('click', (e) => { if (e.target.id === 'terms') $('#terms').hidden = true; });
+  $('#termSearch').addEventListener('input', renderTerms);
 
   document.addEventListener('keydown', (e) => {
     if (e.target.matches?.('input, textarea, select')) {
-      if (e.key === 'Escape') e.target.blur();
+      if (e.key === 'Escape') {
+        if (!$('#terms').hidden) $('#terms').hidden = true;
+        e.target.blur();
+      }
       return;
     }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -674,9 +702,15 @@ function wire() {
     if (e.key === 'Escape') {
       closeObjection();
       $('#drawer').hidden = true;
+      $('#terms').hidden = true;
       return;
     }
-    if (!$('#drawer').hidden) return;
+    if (!$('#drawer').hidden || !$('#terms').hidden) return;
+    if (!objOpen && e.key.toLowerCase() === 't') {
+      openTerms();
+      e.preventDefault();
+      return;
+    }
     if (/^[1-9]$/.test(e.key)) {
       const btns = (objOpen ? $('#objPaths') : $('#answers')).querySelectorAll('button');
       btns[Number(e.key) - 1]?.click();

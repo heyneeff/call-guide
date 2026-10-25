@@ -28,6 +28,113 @@
     { "label": "Close", "start": "close" }
   ],
 
+  "glossary": {
+    "Insurance work": [
+      [
+        "Adjuster",
+        "The insurance company's person who inspects damage and approves the claim. Desk adjuster = remote, field adjuster = on the roof."
+      ],
+      [
+        "Scope / estimate",
+        "The insurer's list of what they'll pay for."
+      ],
+      [
+        "Xactimate",
+        "The software insurers use to price claims, so roofers use it too."
+      ],
+      [
+        "Supplement",
+        "A request for more money when the insurer's scope missed something. Often left open: big source of uncollected money."
+      ],
+      [
+        "RCV / ACV",
+        "Replacement cost value (the full amount) vs. actual cash value (paid up front, minus depreciation)."
+      ],
+      [
+        "Depreciation (recoverable)",
+        "Money the insurer holds back until the job is done. The \"depreciation check\" often never gets collected."
+      ],
+      [
+        "COC",
+        "Certificate of completion. Sent to the insurer to release the depreciation."
+      ],
+      [
+        "Deductible",
+        "The homeowner's share."
+      ],
+      [
+        "Mortgage check",
+        "Insurance check made out to the homeowner AND the mortgage company. Needs both signatures; slow."
+      ],
+      [
+        "O&P, \"10 and 10\"",
+        "Overhead and profit (10% each) insurers sometimes add."
+      ],
+      [
+        "Code upgrades",
+        "Extra work required by current building code, often supplemented."
+      ]
+    ],
+    "The roof": [
+      [
+        "Square",
+        "100 sq ft of roof. How roofs are measured and priced."
+      ],
+      [
+        "Pitch",
+        "How steep the roof is (e.g. 6/12)."
+      ],
+      [
+        "Tear-off",
+        "Removing the old roof."
+      ],
+      [
+        "Decking / sheathing",
+        "The wood boards under the shingles."
+      ],
+      [
+        "Underlayment, ice & water shield",
+        "Layers under the shingles that keep water out."
+      ],
+      [
+        "Flashing, drip edge, ridge vent",
+        "Metal and vent parts at edges, walls and the peak."
+      ]
+    ],
+    "The business": [
+      [
+        "Production",
+        "The install side (production manager, production schedule)."
+      ],
+      [
+        "Retail vs. insurance",
+        "Homeowner pays directly vs. an insurance claim pays."
+      ],
+      [
+        "Storm chasers",
+        "Out-of-town companies that follow hail storms."
+      ],
+      [
+        "Canvassing / door knocking",
+        "How many roofers find leads after a storm."
+      ]
+    ],
+    "Their software": [
+      [
+        "AccuLynx, JobNimbus, Roofr",
+        "Roofing CRMs and job management."
+      ],
+      [
+        "CompanyCam",
+        "Job-site photos, shared with the office."
+      ],
+      [
+        "Jobber, Housecall Pro, ServiceTitan",
+        "General field-service software."
+      ]
+    ]
+  },
+
   "painTags": {
     "lead-cost":              { "label": "Paying for shared vendor leads" },
     "no-lead-tracking":       { "label": "Leads not tracked anywhere central", "tip": "put every new lead in one shared list with a next step and a date, and review it for 10 minutes every Monday." },
