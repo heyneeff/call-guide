@@ -80,7 +80,8 @@
         { "label": "Customers calling for updates", "next": "story_book", "wish": "fewer customer calls" },
         { "label": "Scheduling and crews", "next": "story_book", "wish": "scheduling" },
         { "label": "Leads and quotes slipping", "next": "story_book", "wish": "lead and quote follow-up" },
-        { "label": "Everything runs through me", "next": "story_book", "wish": "not being the bottleneck" }
+        { "label": "Everything runs through me", "next": "story_book", "wish": "not being the bottleneck" },
+        { "label": "Quiet or unsure: make a guess", "objection": "guess" }
       ]
     },
 
@@ -426,6 +427,28 @@
   },
 
   "objections": {
+    "guess": {
+      "kind": "probe",
+      "label": "Make a guess",
+      "title": "Educated guesses: one at a time, then stop talking",
+      "say": [
+        "I'd bet the status of every job lives in one or two people's heads. Am I wrong?",
+        "If you added up everything owed to you right now, would you know the number?",
+        "Are you still the one everything runs through?",
+        "When a quote doesn't get a reply, does anyone follow up?"
+      ],
+      "why": "Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Each industry file can replace this with its own guesses.",
+      "paths": [
+        {
+          "label": "Some of that fits: back to where we were",
+          "next": "resume"
+        },
+        {
+          "label": "Plenty there: bridge to the close",
+          "next": "close"
+        }
+      ]
+    },
     "dig": {
       "kind": "probe",
       "label": "Go deeper ↓",

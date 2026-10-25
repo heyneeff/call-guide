@@ -157,7 +157,70 @@
     ]
   },
 
+  "objections": {
+    "guess": {
+      "kind": "probe",
+      "label": "Make a guess",
+      "title": "Educated guesses: one at a time, then stop talking",
+      "say": [
+        "How many systems do you have installed right now that are still waiting on Xcel?",
+        "I'd guess cash has been tighter this year, with final payments waiting on PTO. Fair?",
+        "Does sales ever promise install dates the install side has to walk back?",
+        "Which city gives you the most redlines on permits?",
+        "Are service calls on older systems getting pushed behind new installs?"
+      ],
+      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Click each guess they agree with to tag it.",
+      "paths": [
+        {
+          "label": "Yes: systems stuck waiting on Xcel / PTO",
+          "next": "resume",
+          "pains": [
+            "pto-delays"
+          ]
+        },
+        {
+          "label": "Yes: cash tight, payments waiting",
+          "next": "resume",
+          "pains": [
+            "missed-milestones"
+          ]
+        },
+        {
+          "label": "Yes: sales promises, ops walks back",
+          "next": "resume",
+          "pains": [
+            "sales-ops-gap"
+          ]
+        },
+        {
+          "label": "Yes: permit redlines",
+          "next": "resume",
+          "pains": [
+            "permit-delays"
+          ]
+        },
+        {
+          "label": "Yes: service calls pushed aside",
+          "next": "resume",
+          "pains": [
+            "service-backlog"
+          ]
+        },
+        {
+          "label": "None fit: ask how they handle it",
+          "next": "resume"
+        },
+        {
+          "label": "Plenty there: bridge to the close",
+          "next": "close"
+        }
+      ]
+    }
+  },
+
   "painTags": {
+    "sales-ops-gap": { "label": "Sales promises dates ops can't meet", "tip": "Have sales quote a range from the real average (e.g. \"8 to 12 weeks to turn on\"), and update it monthly from your actual signing-to-PTO times." },
+    "service-backlog": { "label": "Service calls pushed behind installs", "tip": "Block one fixed service day every week, so repairs stop competing with installs." },
     "lead-cost": {
       "label": "Paying for shared vendor leads"
     },

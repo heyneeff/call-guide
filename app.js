@@ -313,8 +313,8 @@ function openObjection(id) {
   if (!probe) app.call.objections.push(o.label);
   save();
   renderSide();
-  $('#objKind').textContent = probe ? 'Go deeper' : 'Objection';
-  $('#objTitle').textContent = probe ? 'Pain funnel: one question at a time' : `“${o.label}”`;
+  $('#objKind').textContent = probe ? o.label.replace(/\s*↓$/, '') : 'Objection';
+  $('#objTitle').textContent = probe ? (o.title || 'Pain funnel: one question at a time') : `“${o.label}”`;
   renderSay($('#objSay'), o.say);
   renderWhy($('#objWhy'), o.why);
   const cap = $('#objCapture');
@@ -331,7 +331,15 @@ function openObjection(id) {
     onclick: () => {
       closeObjection();
       if (p.next !== 'resume') go(p.next, { label: `${o.label} → ${p.label}`, pains: p.pains });
-      else renderNode(); // captured cost may change the say lines
+      else {
+        // A confirmed guess tags its pain on the current step, so Back removes it too.
+        if (p.pains?.length) {
+          const s = step();
+          s.pains = [...new Set([...(s.pains || []), ...p.pains])];
+          save();
+          render();
+        } else renderNode(); // captured cost may change the say lines
+      }
     },
   }, el('kbd', {}, String(i + 1)), el('span', { class: 'label' }, p.label))));
   $('#overlay').hidden = false;
@@ -598,7 +606,7 @@ function selectIndustry(id) {
 
 function renderObjBar() {
   const entries = Object.entries(app.script.objections);
-  const btn = ([id, o]) => el('button', { class: o.kind === 'probe' ? 'probe' : '', onclick: () => openObjection(id) }, o.label);
+  const btn = ([id, o]) => el('button', { class: o.kind === 'probe' ? 'probe' : '', 'data-id': id, onclick: () => openObjection(id) }, o.label);
   $('#probeButtons').replaceChildren(...entries.filter(([, o]) => o.kind === 'probe').map(btn));
   $('#objButtons').replaceChildren(...entries.filter(([, o]) => o.kind !== 'probe').map(btn));
 }
@@ -716,7 +724,9 @@ function wire() {
       btns[Number(e.key) - 1]?.click();
       e.preventDefault();
     } else if (!objOpen && e.key.toLowerCase() === 'd') {
-      $('#probeButtons button')?.click();
+      $('#probeButtons button[data-id="dig"]')?.click();
+    } else if (!objOpen && e.key.toLowerCase() === 'g') {
+      $('#probeButtons button[data-id="guess"]')?.click();
     } else if (!objOpen && (e.key === 'ArrowLeft' || e.key === 'Backspace')) {
       back();
       e.preventDefault();

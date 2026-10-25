@@ -135,6 +135,84 @@
     ]
   },
 
+  "objections": {
+    "guess": {
+      "kind": "probe",
+      "label": "Make a guess",
+      "title": "Educated guesses: one at a time, then stop talking",
+      "say": [
+        "I'd bet you've got depreciation checks out there nobody's chased in a while. Am I wrong?",
+        "How many supplements are sitting open right now?",
+        "Any mortgage-company checks waiting on signatures?",
+        "Are you still the one meeting the adjusters, or do you have someone for that?",
+        "Are your crews in-house or subs?",
+        "You've probably still got a backlog to finish before the snow, right?",
+        "When an inspection doesn't turn into a claim, does anyone follow up?",
+        "How many \"when's my roof going on\" calls do you get in a week?"
+      ],
+      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Click each guess they agree with to tag it.",
+      "paths": [
+        {
+          "label": "Yes: depreciation not chased",
+          "next": "resume",
+          "pains": [
+            "uncollected-depreciation"
+          ]
+        },
+        {
+          "label": "Yes: supplements sitting open",
+          "next": "resume",
+          "pains": [
+            "unfiled-supplements"
+          ]
+        },
+        {
+          "label": "Yes: mortgage checks stuck",
+          "next": "resume",
+          "pains": [
+            "mortgage-checks"
+          ]
+        },
+        {
+          "label": "Yes: owner does every adjuster meeting",
+          "next": "resume",
+          "pains": [
+            "owner-is-sales"
+          ]
+        },
+        {
+          "label": "Yes: sub crews are hard to coordinate",
+          "next": "resume",
+          "pains": [
+            "sub-coordination"
+          ]
+        },
+        {
+          "label": "Yes: racing the snow / backlog",
+          "next": "resume",
+          "pains": [
+            "weather-backlog"
+          ]
+        },
+        {
+          "label": "Yes: lots of \"when's my roof\" calls",
+          "next": "resume",
+          "pains": [
+            "whens-my-roof"
+          ]
+        },
+        {
+          "label": "None fit: ask how they handle it",
+          "next": "resume"
+        },
+        {
+          "label": "Plenty there: bridge to the close",
+          "next": "close"
+        }
+      ]
+    }
+  },
+
   "painTags": {
     "lead-cost":              { "label": "Paying for shared vendor leads" },
     "no-lead-tracking":       { "label": "Leads not tracked anywhere central", "tip": "put every new lead in one shared list with a next step and a date, and review it for 10 minutes every Monday." },
