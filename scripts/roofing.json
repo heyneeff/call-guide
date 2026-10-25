@@ -140,67 +140,82 @@
       "kind": "probe",
       "label": "Make a guess",
       "title": "Educated guesses: one at a time, then stop talking",
-      "say": [
-        "I'd bet you've got depreciation checks out there nobody's chased in a while. Am I wrong?",
-        "How many supplements are sitting open right now?",
-        "Any mortgage-company checks waiting on signatures?",
-        "Are you still the one meeting the adjusters, or do you have someone for that?",
-        "Are your crews in-house or subs?",
-        "You've probably still got a backlog to finish before the snow, right?",
-        "When an inspection doesn't turn into a claim, does anyone follow up?",
-        "How many \"when's my roof going on\" calls do you get in a week?"
-      ],
-      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Click each guess they agree with to tag it.",
-      "paths": [
+      "guesses": [
         {
-          "label": "Yes: depreciation not chased",
-          "next": "resume",
+          "ask": "I'd bet you've got depreciation checks out there nobody's chased in a while. Am I wrong?",
+          "label": "Depreciation not chased",
           "pains": [
             "uncollected-depreciation"
-          ]
+          ],
+          "tip": "List every finished insurance job, the depreciation owed, and the date the COC went out. Sort by oldest and call the insurer on the top five this week.",
+          "fix": "A money-owed list with days waiting. When a job is marked finished, the office gets a task to send the COC and final invoice within 48 hours. Reminders at 14 and 30 days. A 10-minute Friday review."
         },
         {
-          "label": "Yes: supplements sitting open",
-          "next": "resume",
+          "ask": "How many supplements are sitting open right now?",
+          "label": "Supplements sitting open",
           "pains": [
             "unfiled-supplements"
-          ]
+          ],
+          "tip": "Put every open supplement on one list with the date it was sent and the amount. Follow up on anything older than 14 days.",
+          "fix": "A supplements list with days waiting and an owner for each one. Automatic follow-up tasks at 7, 14 and 30 days. Approved amounts flow into the final invoice."
         },
         {
-          "label": "Yes: mortgage checks stuck",
-          "next": "resume",
+          "ask": "Any mortgage-company checks waiting on signatures?",
+          "label": "Mortgage checks stuck",
           "pains": [
             "mortgage-checks"
-          ]
+          ],
+          "tip": "The day a mortgage check arrives, text the homeowner the exact steps and who to call at the mortgage company.",
+          "fix": "Track each check's stage (received, homeowner signed, sent to the lender, released) with a reminder when one sits more than 7 days."
         },
         {
-          "label": "Yes: owner does every adjuster meeting",
-          "next": "resume",
+          "ask": "Are you still the one meeting the adjusters, or do you have someone for that?",
+          "label": "Owner does every adjuster meeting",
           "pains": [
             "owner-is-sales"
-          ]
+          ],
+          "tip": "Write down what you check at an adjuster meeting. That one page is how someone else can take the easy ones.",
+          "fix": "A one-page inspection and adjuster checklist, photo standards, and a simple handoff so a trained rep runs routine meetings."
         },
         {
-          "label": "Yes: sub crews are hard to coordinate",
-          "next": "resume",
+          "ask": "Are your crews in-house or subs?",
+          "label": "Sub crews are hard to coordinate",
           "pains": [
             "sub-coordination"
-          ]
+          ],
+          "tip": "Text each crew lead the night before: address, scope, materials, gate code. One message, same format every time.",
+          "fix": "An automatic night-before text to each crew and a required \"done\" photo that tells the office the job is finished. Subs never open an app."
         },
         {
-          "label": "Yes: racing the snow / backlog",
-          "next": "resume",
+          "ask": "You've probably still got a backlog to finish before the snow, right?",
+          "label": "Racing the snow / backlog",
           "pains": [
             "weather-backlog"
-          ]
+          ],
+          "tip": "Keep a ranked \"next up if it's dry\" list, so a clear day never goes to waste.",
+          "fix": "A ready-check before a job is scheduled (materials, permit, customer confirmed) and a weather-ready queue sorted by priority."
         },
         {
-          "label": "Yes: lots of \"when's my roof\" calls",
-          "next": "resume",
+          "ask": "When an inspection doesn't turn into a claim, does anyone follow up?",
+          "label": "Inspections go nowhere",
+          "pains": [
+            "inconsistent-followup"
+          ],
+          "tip": "Call back every inspection from the last 60 days that never turned into a claim. Some are still deciding.",
+          "fix": "Every inspection gets automatic follow-ups on day 2, 5 and 10 until a claim is filed or the lead is closed, plus a weekly list of the ones going cold."
+        },
+        {
+          "ask": "How many \"when's my roof going on\" calls do you get in a week?",
+          "label": "Lots of \"when's my roof\" calls",
           "pains": [
             "whens-my-roof"
-          ]
-        },
+          ],
+          "tip": "Text the homeowner at each stage, even by hand from a saved template: claim approved, materials ordered, install date, final.",
+          "fix": "Automatic homeowner texts each time a job changes stage on the job board. The calls drop without anyone typing more."
+        }
+      ],
+      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",
+      "paths": [
         {
           "label": "None fit: ask how they handle it",
           "next": "resume"

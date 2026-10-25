@@ -162,50 +162,55 @@
       "kind": "probe",
       "label": "Make a guess",
       "title": "Educated guesses: one at a time, then stop talking",
-      "say": [
-        "How many systems do you have installed right now that are still waiting on Xcel?",
-        "I'd guess cash has been tighter this year, with final payments waiting on PTO. Fair?",
-        "Does sales ever promise install dates the install side has to walk back?",
-        "Which city gives you the most redlines on permits?",
-        "Are service calls on older systems getting pushed behind new installs?"
-      ],
-      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Click each guess they agree with to tag it.",
-      "paths": [
+      "guesses": [
         {
-          "label": "Yes: systems stuck waiting on Xcel / PTO",
-          "next": "resume",
+          "ask": "How many systems do you have installed right now that are still waiting on Xcel?",
+          "label": "Systems waiting on Xcel / PTO",
           "pains": [
             "pto-delays"
-          ]
+          ],
+          "tip": "List every installed system without PTO, with the date it was submitted. Call Xcel on the oldest three this week.",
+          "fix": "A job board with each job's stage and days in stage. Anything stuck at interconnection or PTO past the usual time gets flagged, with a weekly utility follow-up."
         },
         {
-          "label": "Yes: cash tight, payments waiting",
-          "next": "resume",
+          "ask": "I'd guess cash has been tighter this year, with final payments waiting on PTO. Fair?",
+          "label": "Cash tight, payments waiting",
           "pains": [
             "missed-milestones"
-          ]
+          ],
+          "tip": "Write down every milestone payment you're owed (M1, M2, M3) and what's holding each one up.",
+          "fix": "A milestone tracker per job that shows what's owed, what it's waiting on, and the total cash out there. Reviewed every Friday."
         },
         {
-          "label": "Yes: sales promises, ops walks back",
-          "next": "resume",
+          "ask": "Does sales ever promise install dates the install side has to walk back?",
+          "label": "Sales promises dates ops can't meet",
           "pains": [
             "sales-ops-gap"
-          ]
+          ],
+          "tip": "Have sales quote a range from your real average, like \"8 to 12 weeks to turn on.\"",
+          "fix": "Real signing-to-PTO times from the job board, updated monthly, that sales quotes from. Plus a handoff checklist from sales to ops."
         },
         {
-          "label": "Yes: permit redlines",
-          "next": "resume",
+          "ask": "Which city gives you the most redlines on permits?",
+          "label": "Permit redlines",
           "pains": [
             "permit-delays"
-          ]
+          ],
+          "tip": "Keep a short list of what each city always kicks back, and check it before submitting.",
+          "fix": "A permit checklist per city built from past redlines, and permit status with days waiting on the job board. Use SolarAPP+ where the city allows it."
         },
         {
-          "label": "Yes: service calls pushed aside",
-          "next": "resume",
+          "ask": "Are service calls on older systems getting pushed behind new installs?",
+          "label": "Service calls pushed aside",
           "pains": [
             "service-backlog"
-          ]
-        },
+          ],
+          "tip": "Block one fixed service day a week.",
+          "fix": "A service queue with its own intake, a set service day, and automatic customer updates, so repairs stop competing with installs."
+        }
+      ],
+      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",
+      "paths": [
         {
           "label": "None fit: ask how they handle it",
           "next": "resume"

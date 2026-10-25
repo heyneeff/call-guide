@@ -315,7 +315,8 @@ function openObjection(id) {
   renderSide();
   $('#objKind').textContent = probe ? o.label.replace(/\s*↓$/, '') : 'Objection';
   $('#objTitle').textContent = probe ? (o.title || 'Pain funnel: one question at a time') : `“${o.label}”`;
-  renderSay($('#objSay'), o.say);
+  if (o.guesses) renderGuesses($('#objSay'), o.guesses);
+  else renderSay($('#objSay'), o.say);
   renderWhy($('#objWhy'), o.why);
   const cap = $('#objCapture');
   cap.hidden = !o.capture;
@@ -347,8 +348,29 @@ function openObjection(id) {
 
 function closeObjection() { $('#overlay').hidden = true; }
 
+// Guess cards: the question to ask, a free tip to give on the call, and the real fix.
+// "They said yes" tags the pain on the current step (so Back removes it) and keeps the panel open.
+function renderGuesses(box, guesses) {
+  const s = step();
+  const tagged = (g) => g.pains?.length && g.pains.every((t) => (s.pains || []).includes(t));
+  const toggle = (g) => {
+    s.pains = tagged(g) ? (s.pains || []).filter((t) => !g.pains.includes(t)) : [...new Set([...(s.pains || []), ...g.pains])];
+    save();
+    renderSide();
+    renderGuesses(box, guesses);
+  };
+  box.replaceChildren(...guesses.map((g) => el('div', { class: 'guess' + (tagged(g) ? ' on' : '') },
+    el('p', { class: 'gask' }, g.ask),
+    el('p', { class: 'gtip' }, el('strong', {}, 'If yes, free tip: '), g.tip),
+    el('p', { class: 'gfix' }, el('strong', {}, 'The fix (paid): '), g.fix),
+    g.pains?.length ? el('button', { class: 'btn gtag', onclick: () => toggle(g) }, tagged(g) ? '✓ Tagged' : 'They said yes: tag it') : null)));
+  box.hidden = false;
+  box.classList.add('guesses');
+}
+
 // ---------- rendering ----------
 function renderSay(box, say) {
+  box.classList.remove('guesses');
   const lines = [].concat(say || []).map(fill).filter(Boolean);
   box.replaceChildren(...lines.map((t) => el('p', {}, t)));
   box.hidden = !lines.length;

@@ -431,16 +431,33 @@
       "kind": "probe",
       "label": "Make a guess",
       "title": "Educated guesses: one at a time, then stop talking",
-      "say": [
-        "I'd bet the status of every job lives in one or two people's heads. Am I wrong?",
-        "If you added up everything owed to you right now, would you know the number?",
-        "Are you still the one everything runs through?",
-        "When a quote doesn't get a reply, does anyone follow up?"
+      "guesses": [
+        {
+          "ask": "I'd bet the status of every job lives in one or two people's heads. Am I wrong?",
+          "label": "Status lives in someone's head",
+          "pains": [],
+          "tip": "Add a stage column and a days-in-stage column to the job list. Sort by days-in-stage every Monday.",
+          "fix": "A job board with real stages, stuck jobs flagged automatically, fed by a daily 5-minute call with the field."
+        },
+        {
+          "ask": "If you added up everything owed to you right now, would you know the number?",
+          "label": "Don't know money owed",
+          "pains": [],
+          "tip": "Add a money-still-owed column to every job and review it every Friday.",
+          "fix": "A money-owed view per job with automatic reminders and a weekly report for the owner."
+        },
+        {
+          "ask": "When a quote doesn't get a reply, does anyone follow up?",
+          "label": "Quotes go quiet",
+          "pains": [],
+          "tip": "Follow up on day 2, 5 and 10. Even calendar reminders win jobs back.",
+          "fix": "Automatic quote follow-ups and a weekly list of quotes going cold."
+        }
       ],
-      "why": "Say \"I'd bet...\", then stop talking. If you're wrong, say \"Oh, interesting, how do you handle that?\" Each industry file can replace this with its own guesses.",
+      "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",
       "paths": [
         {
-          "label": "Some of that fits: back to where we were",
+          "label": "None fit: ask how they handle it",
           "next": "resume"
         },
         {
