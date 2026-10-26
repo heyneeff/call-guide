@@ -349,23 +349,63 @@ function openObjection(id) {
 function closeObjection() { $('#overlay').hidden = true; }
 
 // Guess cards: the question to ask, a free tip to give on the call, and the real fix.
-// "They said yes" tags the pain on the current step (so Back removes it) and keeps the panel open.
-function renderGuesses(box, guesses) {
+// "They said yes" tags the pain on the current step (so Back removes it).
+const guessTagged = (g) => g.pains?.length && g.pains.every((t) => (step().pains || []).includes(t));
+
+function toggleGuess(g) {
   const s = step();
-  const tagged = (g) => g.pains?.length && g.pains.every((t) => (s.pains || []).includes(t));
-  const toggle = (g) => {
-    s.pains = tagged(g) ? (s.pains || []).filter((t) => !g.pains.includes(t)) : [...new Set([...(s.pains || []), ...g.pains])];
-    save();
-    renderSide();
-    renderGuesses(box, guesses);
-  };
-  box.replaceChildren(...guesses.map((g) => el('div', { class: 'guess' + (tagged(g) ? ' on' : '') },
+  s.pains = guessTagged(g) ? (s.pains || []).filter((t) => !g.pains.includes(t)) : [...new Set([...(s.pains || []), ...g.pains])];
+  save();
+  renderSide();
+}
+
+function guessCard(g, { star = g.top, onTag, compact = false } = {}) {
+  const fix = compact
+    ? el('details', { class: 'gfix' }, el('summary', {}, el('strong', {}, 'The fix (paid)')), g.fix)
+    : el('p', { class: 'gfix' }, el('strong', {}, 'The fix (paid): '), g.fix);
+  return el('div', { class: 'guess' + (star ? ' top' : '') + (guessTagged(g) ? ' on' : '') },
+    star ? el('span', { class: 'gstar' }, '★ Start here') : null,
     el('p', { class: 'gask' }, g.ask),
     el('p', { class: 'gtip' }, el('strong', {}, 'If yes, free tip: '), g.tip),
-    el('p', { class: 'gfix' }, el('strong', {}, 'The fix (paid): '), g.fix),
-    g.pains?.length ? el('button', { class: 'btn gtag', onclick: () => toggle(g) }, tagged(g) ? '✓ Tagged' : 'They said yes: tag it') : null)));
+    fix,
+    g.pains?.length ? el('button', { class: 'btn gtag', onclick: () => { toggleGuess(g); onTag(); } }, guessTagged(g) ? '✓ Tagged' : 'They said yes: tag it') : null);
+}
+
+function renderGuesses(box, guesses) {
+  // Starred guesses ("top") come first; a divider marks where the backups start.
+  const firstBackup = guesses.findIndex((g) => !g.top);
+  box.replaceChildren(...guesses.flatMap((g, i) => [
+    i === firstBackup && i > 0 ? el('p', { class: 'gmore' }, 'More guesses, if those miss') : null,
+    guessCard(g, { onTag: () => renderGuesses(box, guesses) }),
+  ]).filter(Boolean));
   box.hidden = false;
   box.classList.add('guesses');
+}
+
+// Guesses written into the script:
+// - the answer they just gave named a pain → its tip and fix, to use right now;
+// - the question has guesses pinned to it ("at": [node ids]) → up to two, for when they're vague.
+function renderNodeGuesses() {
+  const box = $('#nodeGuess');
+  const s = step();
+  const all = app.script.objections?.guess?.guesses || [];
+  const just = s.pains || [];
+  const named = s.label ? all.find((g) => g.pains?.some((t) => just.includes(t))) : null;
+  const found = new Set(pains().map((p) => p.tag));
+  const here = all.filter((g) => g !== named && g.at?.includes(s.node) && !g.pains?.every((t) => found.has(t))).slice(0, 2);
+  const kids = [];
+  if (named) {
+    kids.push(el('p', { class: 'ghead' }, 'They just named it. Give the tip:'),
+      el('div', { class: 'guess named' },
+        el('p', { class: 'gtip' }, el('strong', {}, 'Free tip: '), named.tip),
+        el('details', { class: 'gfix' }, el('summary', {}, el('strong', {}, 'The fix (paid)')), named.fix)));
+  }
+  if (here.length) {
+    kids.push(el('p', { class: 'ghead' }, 'If they\'re vague, guess:'),
+      ...here.map((g) => guessCard(g, { compact: true, onTag: renderNodeGuesses })));
+  }
+  box.replaceChildren(...kids);
+  box.hidden = !kids.length;
 }
 
 // ---------- rendering ----------
@@ -410,6 +450,7 @@ function renderNode() {
   $('#question').textContent = fill(n.question) ?? n.question;
   renderSay($('#say'), n.say);
   renderWhy($('#why'), n.why);
+  renderNodeGuesses();
 
   // Highlight the answer with the highest minPains threshold the call has reached.
   const answers = n.answers || [];

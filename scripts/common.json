@@ -437,28 +437,41 @@
           "label": "Status lives in someone's head",
           "pains": [],
           "tip": "Don't ask the field to update anything. Set a 5-minute call at the same time every day (say 3:30) where the office asks three things: what moved, what's stuck, what do you need. The foreman just talks, and the office keeps the record.",
-          "fix": "Automated: a job board updated from the daily call, with jobs stuck past their usual time flagging themselves and a Monday digest emailed to the owner. Built in what they already pay for (Jobber, Housecall Pro) or Airtable."
+          "fix": "A job board in the app they already pay for, updated from the daily call. Jobs stuck past their usual time show on Monday's stuck list for the owner.",
+          "top": 1,
+          "at": [
+            "story_tight",
+            "story_dig"
+          ]
         },
         {
           "ask": "If you added up everything owed to you right now, would you know the number?",
           "label": "Don't know money owed",
           "pains": [],
           "tip": "Turn on the automatic invoice reminders in QuickBooks or Xero. They're built in and free, and a lot of contractors never switch them on. Then add a pay-by-text link, so the customer can pay from the driveway.",
-          "fix": "Automated: the invoice goes out the day the job is marked complete, reminders at 7, 14 and 30 days come from the accounting software, and a Friday money-owed report lands in the owner's inbox."
-        },
-        {
-          "ask": "When a quote doesn't get a reply, does anyone follow up?",
-          "label": "Quotes go quiet",
-          "pains": [],
-          "tip": "Make the follow-up a question they can answer: \"Did the price land where you expected, or should we look at options?\" gets replies that \"just checking in\" never does.",
-          "fix": "Automated: follow-up texts and emails on day 2, 5 and 10 that stop once the quote is signed, plus a weekly list of quotes about to go cold. Jobber has this built in, and most field-service tools do."
+          "fix": "Automated: the invoice goes out the day the job is marked complete, reminders at 7, 14 and 30 days come from the accounting software, and a Friday money-owed report lands in the owner's inbox.",
+          "top": 2,
+          "at": [
+            "story_tight"
+          ]
         },
         {
           "ask": "When everyone's out on jobs, who answers the phone?",
           "label": "Missed calls on job days",
           "pains": [],
           "tip": "Call your own number at 2 pm on a weekday and hear what a customer gets. If it's voicemail, change the greeting to promise a text back within 15 minutes, and keep that promise.",
-          "fix": "Automated: missed-call text-back. Every missed call gets an instant text, and the reply becomes a lead with a callback task."
+          "fix": "Missed-call text-back from the phone feature in their CRM, or a business phone service if it doesn't have one. The reply lands in the lead inbox with a callback task.",
+          "top": 3
+        },
+        {
+          "ask": "When a quote doesn't get a reply, does anyone follow up?",
+          "label": "Quotes go quiet",
+          "pains": [],
+          "tip": "Make the follow-up a question they can answer: \"Did the price land where you expected, or should we look at options?\" gets replies that \"just checking in\" never does.",
+          "fix": "Automated: follow-up texts and emails on day 2, 5 and 10 that stop once the quote is signed, plus a weekly list of quotes about to go cold. Jobber has this built in, and most field-service tools do.",
+          "at": [
+            "story_dig"
+          ]
         },
         {
           "ask": "When the crew does extra work on site, how does it end up on the invoice?",

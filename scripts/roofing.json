@@ -147,53 +147,15 @@
           "pains": [
             "uncollected-depreciation"
           ],
-          "tip": "Pull the recoverable-depreciation deadline from the policy on every open claim. Many policies give around 180 days from loss or payment, and some are shorter. Work the list by deadline, not by date finished, because a check past its deadline is just gone.",
-          "fix": "Automated: when a job hits Complete, the CRM emails the carrier the COC and final invoice from a template the same day and starts a countdown to that claim's deadline. Reminders fire at 14 and 30 days and 30 days before the deadline. In JobNimbus or AccuLynx this is a status-change workflow, so nobody has to remember."
-        },
-        {
-          "ask": "How many supplements are sitting open right now?",
-          "label": "Supplements sitting open",
-          "pains": [
-            "unfiled-supplements"
-          ],
-          "tip": "The lines that get missed most are code items: drip edge, ice and water at the eaves, starter, steep and high charges. Check the approved scope against local code before tear-off, and cite the code section with photos in the supplement. A code citation is hard for an adjuster to argue with.",
-          "fix": "Automated: a supplement record opens itself when the scope is approved, pre-filled with a code-item checklist. Follow-ups to the adjuster go out on day 7, 14 and 30 until it's approved or denied, and approved amounts flow into the final invoice. If they don't want it in-house, a supplement service paid on a percentage of what it recovers needs no staff at all."
-        },
-        {
-          "ask": "Any mortgage-company checks waiting on signatures?",
-          "label": "Mortgage checks stuck",
-          "pains": [
-            "mortgage-checks"
-          ],
-          "tip": "Get the loan number and the lender's loss-draft department number at contract signing, not when the check shows up. Loss-draft departments usually want the endorsed check, the signed contract, a W-9 and often an inspection request. Send the whole packet at once instead of finding out one item at a time.",
-          "fix": "Automated: the loss-draft packet (contract, W-9, lien waiver, photos) is built from the job record and sent to the homeowner for e-signature. Each check moves through stages (received, endorsed, sent to lender, inspected, released), and a call-the-lender task appears whenever one sits more than 7 days."
-        },
-        {
-          "ask": "Are you still the one meeting the adjusters, or do you have someone for that?",
-          "label": "Owner does every adjuster meeting",
-          "pains": [
-            "owner-is-sales"
-          ],
-          "tip": "Record a voice memo of your next three adjuster meetings, start to finish. A new rep learns more from hearing how you push back on a scope than from any checklist you could write.",
-          "fix": "An adjuster playbook built from the owner's own recordings, a photo standard enforced by required-photo checklists in CompanyCam, and adjuster meetings booked onto a rep's calendar automatically once the claim is filed. The owner only takes the disputed ones."
-        },
-        {
-          "ask": "Are your crews in-house or subs?",
-          "label": "Sub crews are hard to coordinate",
-          "pains": [
-            "sub-coordination"
-          ],
-          "tip": "Send subs one link per job (a CompanyCam project or shared album) instead of a text thread: address, scope, material order, gate code and the inspection photos. Ask for the done photos in the same link. Subs actually like this one, because it ends the 9 pm calls.",
-          "fix": "Automated: the night before, each crew lead gets a text with that job's link, generated from the schedule. Completion photos landing in CompanyCam mark the job done and trigger the final invoice. Subs never open the CRM."
-        },
-        {
-          "ask": "You've probably still got a backlog to finish before the snow, right?",
-          "label": "Racing the snow / backlog",
-          "pains": [
-            "weather-backlog"
-          ],
-          "tip": "Rank the backlog by money already out: jobs with materials delivered or ACV checks cashed go first, because that's your money sitting in someone's driveway. And check each manufacturer's cold-weather instructions before pushing into December. Seal strips don't bond in the cold without hand-sealing.",
-          "fix": "Automated: a weather-ready queue sorted by money at risk. A daily forecast check flags tomorrow's jobs when wind or temperature is out of range, texts the affected homeowners their new date, and sends crews the reshuffled schedule."
+          "tip": "Find the recoverable-depreciation deadline in the policy on every open claim. It varies by carrier and policy, so don't guess it. Work the list by deadline, not by date finished, because a check past its deadline is just gone.",
+          "fix": "Moving a job to Built creates a \"send the completion paperwork\" task (certificate of completion and final invoice) with that claim's deadline on it. The check sits on the money-owed list until it arrives, and the Friday review catches anything close to its deadline.",
+          "top": 1,
+          "at": [
+            "learn_q1",
+            "money_collect",
+            "money_leak",
+            "story_tight"
+          ]
         },
         {
           "ask": "When an inspection doesn't turn into a claim, does anyone follow up?",
@@ -201,17 +163,13 @@
           "pains": [
             "inconsistent-followup"
           ],
-          "tip": "Colorado law gives homeowners at least a year from the storm date to file a hail claim. Call back every inspection from this season that never filed, with the storm date and their deadline. It's a reason to call that isn't a sales pitch.",
-          "fix": "Automated: every inspection that doesn't file gets a text and email sequence on day 2, 5 and 10, then a reminder 60 days before the one-year filing deadline. Replies land in the CRM as tasks for the rep."
-        },
-        {
-          "ask": "How many \"when's my roof going on\" calls do you get in a week?",
-          "label": "Lots of \"when's my roof\" calls",
-          "pains": [
-            "whens-my-roof"
-          ],
-          "tip": "Those calls aren't about the roof. They're about not knowing when they'll hear from you next. End every homeowner call with a date: \"You'll hear from me Thursday either way.\" Then call Thursday.",
-          "fix": "Automated: the homeowner gets a text every time the job changes stage (claim approved, materials ordered, install date, crew on site, final walkthrough), sent by the CRM's status-change automation. Nobody types anything new."
+          "tip": "Call back every inspection from this season that never filed, with the storm date. Policies have deadlines for reporting a claim, so it's a reason to call that isn't a sales pitch.",
+          "fix": "Every inspection is a card on the board. One that doesn't file gets the same follow-ups as a quote (day 2, 5 and 10), then a follow-up date that brings it back before the season ends.",
+          "top": 2,
+          "at": [
+            "lead_tracking",
+            "sales_followup"
+          ]
         },
         {
           "ask": "When you're all up on roofs, who answers the phone?",
@@ -220,7 +178,89 @@
             "missed-calls"
           ],
           "tip": "Call your own number from a cell at 2 pm on a weekday and hear what a homeowner gets. If it's voicemail, change the greeting to promise a text back within 15 minutes, and keep that promise. Plenty of homeowners would rather text anyway.",
-          "fix": "Automated: missed-call text-back. Every missed call gets an instant text (\"Sorry we missed you, we're on a roof. What's the address and what's going on?\"). The reply becomes a lead in the CRM with a callback task. OpenPhone, Podium or the CRM's own phone add-on does this for about the price of a phone line."
+          "fix": "Missed-call text-back from the phone feature in their CRM, or a business phone service if it doesn't have one. Every missed call gets an instant text (\"Sorry we missed you, we're on a roof. What's the address and what's going on?\"), and the reply lands in the lead inbox with a callback task.",
+          "top": 3,
+          "at": [
+            "lead_speed",
+            "story_dig"
+          ]
+        },
+        {
+          "ask": "How many supplements are sitting open right now?",
+          "label": "Supplements sitting open",
+          "pains": [
+            "unfiled-supplements"
+          ],
+          "tip": "The lines that get missed most are code items: drip edge, ice and water at the eaves, starter, steep and high charges. Check the approved scope against local code before tear-off, and cite the code section with photos in the supplement. A code citation is hard for an adjuster to argue with.",
+          "fix": "Each open supplement is a line on the job's money-owed list with the amount and the date sent, plus a follow-up date that brings it back every 7 days until it's approved or denied. If they'd rather not do supplements in-house, a supplement service paid on a percentage of what it recovers needs no staff. The board just tracks what was sent.",
+          "at": [
+            "money_collect",
+            "pipeline_stuck"
+          ]
+        },
+        {
+          "ask": "Any mortgage-company checks waiting on signatures?",
+          "label": "Mortgage checks stuck",
+          "pains": [
+            "mortgage-checks"
+          ],
+          "tip": "Get the loan number and the lender's loss-draft department number at contract signing, not when the check shows up. Loss-draft departments usually want the endorsed check, the signed contract, a W-9 and often an inspection request. Send the whole packet at once instead of finding out one item at a time.",
+          "fix": "Each mortgage check is its own line on the money-owed list (received, endorsed, sent to the lender, released), and the loss-draft packet is a saved checklist on the job. Anything sitting 7 days comes back as a call-the-lender task.",
+          "at": [
+            "money_leak"
+          ]
+        },
+        {
+          "ask": "Are you still the one meeting the adjusters, or do you have someone for that?",
+          "label": "Owner does every adjuster meeting",
+          "pains": [
+            "owner-is-sales"
+          ],
+          "tip": "Record a voice memo of your next three adjuster meetings, start to finish. A new rep learns more from hearing how you walk an adjuster through the damage than from any checklist you could write.",
+          "fix": "An adjuster playbook built from the owner's own recordings, plus a required-photo checklist in CompanyCam so every rep documents the same way. Adjuster meetings go on a rep's calendar, and the owner only takes the hard ones.",
+          "at": [
+            "owner_week",
+            "owner_one_thing"
+          ]
+        },
+        {
+          "ask": "Are your crews in-house or subs?",
+          "label": "Sub crews are hard to coordinate",
+          "pains": [
+            "sub-coordination"
+          ],
+          "tip": "Send subs one link per job (a CompanyCam project or shared album) instead of a text thread: address, scope, material order, gate code and the inspection photos. Ask for the done photos in the same link. Subs actually like this one, because it ends the 9 pm calls.",
+          "fix": "One CompanyCam project per job is the sub's whole world: address, scope, material order, gate code, and the done photos go back in the same place. The night-before text comes from the schedule if the CRM can send it, or from a saved template. Subs never open the CRM.",
+          "at": [
+            "crew_scheduling",
+            "crew_problems"
+          ]
+        },
+        {
+          "ask": "You've probably still got a backlog to finish before the snow, right?",
+          "label": "Racing the snow / backlog",
+          "pains": [
+            "weather-backlog"
+          ],
+          "tip": "Rank the backlog by money already out: jobs with materials delivered or ACV checks cashed go first, because that's your money sitting in someone's driveway. And check each manufacturer's cold-weather instructions before pushing into December. Seal strips don't bond in the cold without hand-sealing.",
+          "fix": "The board sorted by money at risk (materials delivered, ACV check cashed) becomes the build order. Weather calls stay a human decision; the new-date text to the homeowner is a saved template, one tap.",
+          "at": [
+            "crew_problems",
+            "pipeline_count"
+          ]
+        },
+        {
+          "ask": "How many \"when's my roof going on\" calls do you get in a week?",
+          "label": "Lots of \"when's my roof\" calls",
+          "pains": [
+            "whens-my-roof"
+          ],
+          "tip": "Those calls aren't about the roof. They're about not knowing when they'll hear from you next. End every homeowner call with a date: \"You'll hear from me Thursday either way.\" Then call Thursday.",
+          "fix": "The CRM's built-in customer texts go out every time the job changes stage: claim approved, materials ordered, install date, crew on site, final walkthrough. Nobody types anything new.",
+          "at": [
+            "comms_updates",
+            "comms_calls"
+          ]
         },
         {
           "ask": "When you sell an upgraded manufacturer warranty, who registers it, and when?",
@@ -229,7 +269,10 @@
             "warranty-not-registered"
           ],
           "tip": "Pick ten jobs from last year and look them up in the manufacturer's contractor portal. Enhanced warranties have to be registered within a set window after install. If one got missed, the homeowner doesn't have the warranty you sold them, and it's better you find that out than they do.",
-          "fix": "Automated: when a job is marked Paid, the CRM creates a register-the-warranty task with the deadline and the documents attached. It stays on the owner's dashboard until it's done, and a monthly report lists any job past the window."
+          "fix": "Moving a job to Paid creates a \"register the warranty\" task with the deadline. It stays on the board until it's done.",
+          "at": [
+            "pipeline_tracking"
+          ]
         },
         {
           "ask": "When hail hits a neighborhood you've already roofed, do your past customers hear from you before the door-knockers show up?",
@@ -238,7 +281,10 @@
             "past-customers-ignored"
           ],
           "tip": "Your past customers and their neighbors are your warmest leads after a storm. Keep every roof you've done listed by zip code, and text that zip the morning after hail with a free re-inspection offer. It beats knocking cold doors.",
-          "fix": "Automated: storm reports from a hail-tracking service (HailTrace, Interactive Hail Maps) are matched against past job addresses, and the CRM texts those customers a re-inspection offer. Replies come back as new leads with a rep assigned."
+          "fix": "Every past job is in the CRM with its address. The morning after hail, the office filters by zip code and sends one saved text with a free re-inspection offer. Replies land in the lead inbox.",
+          "at": [
+            "lead_source"
+          ]
         },
         {
           "ask": "How do you ask for reviews? Is it automatic, or when someone remembers?",
@@ -247,7 +293,11 @@
             "no-review-requests"
           ],
           "tip": "Ask in person at the final walkthrough while the crew is cleaning up, then text the direct write-a-review link before you leave the driveway. Use the link that opens the review form, not your Google listing. It saves them three taps.",
-          "fix": "Automated: when the final payment clears, the homeowner gets a review-request text with the direct Google link, and one reminder 3 days later. Podium, NiceJob or the CRM's own review tool handles it."
+          "fix": "When the final payment comes in, the CRM's built-in review request texts the direct Google link, with one reminder 3 days later.",
+          "at": [
+            "lead_source",
+            "comms_updates"
+          ]
         },
         {
           "ask": "When the crew finds rotten decking on tear-off, how does that get approved and billed?",
@@ -256,7 +306,11 @@
             "unbilled-change-orders"
           ],
           "tip": "Put the per-sheet decking price in the contract, and have the crew lead photograph every bad sheet before it's replaced, with a count. Then it's a line on the invoice instead of an argument, and on insurance jobs the photos go straight into the supplement.",
-          "fix": "Automated: an extra-decking checklist in CompanyCam with required photos and a sheet count. It adds a change-order line to the job in the CRM and to the final invoice or supplement. The crew keeps doing what they already do: take photos."
+          "fix": "An extra-decking checklist in CompanyCam with required photos and a sheet count. The office adds the line to the invoice (or the supplement) the same day, at the per-sheet price in the contract. The crew keeps doing what they already do: take photos.",
+          "at": [
+            "pipeline_impact",
+            "crew_problems"
+          ]
         }
       ],
       "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",

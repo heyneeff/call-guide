@@ -122,6 +122,14 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .say.guesses::before { display: none; }
 .guess { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0; padding: 12px 14px; background: var(--say-bg); }
 .guess.on { border-color: var(--pain); }
+.say.nodeguess { margin-top: 14px; gap: 8px; }
+.say.guesses .ghead { margin: 4px 0 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.guess.named { border-left-color: var(--pain); }
+.guess details.gfix summary { cursor: pointer; }
+.guess details.gfix[open] summary { margin-bottom: 4px; }
+.nodeguess .guess .gask { font-size: 17px; }
+.guess .gstar { display: block; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--accent); margin-bottom: 4px; }
+.say.guesses .gmore { margin: 8px 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .guess p { margin: 0 0 6px; }
 .guess .gask { font-size: 19px; line-height: 1.4; }
 .guess .gtip, .guess .gfix { font-size: 14.5px; color: var(--muted); }
