@@ -436,22 +436,43 @@
           "ask": "I'd bet the status of every job lives in one or two people's heads. Am I wrong?",
           "label": "Status lives in someone's head",
           "pains": [],
-          "tip": "Add a stage column and a days-in-stage column to the job list. Sort by days-in-stage every Monday.",
-          "fix": "A job board with real stages, stuck jobs flagged automatically, fed by a daily 5-minute call with the field."
+          "tip": "Don't ask the field to update anything. Set a 5-minute call at the same time every day (say 3:30) where the office asks three things: what moved, what's stuck, what do you need. The foreman just talks, and the office keeps the record.",
+          "fix": "Automated: a job board updated from the daily call, with jobs stuck past their usual time flagging themselves and a Monday digest emailed to the owner. Built in what they already pay for (Jobber, Housecall Pro) or Airtable."
         },
         {
           "ask": "If you added up everything owed to you right now, would you know the number?",
           "label": "Don't know money owed",
           "pains": [],
-          "tip": "Add a money-still-owed column to every job and review it every Friday.",
-          "fix": "A money-owed view per job with automatic reminders and a weekly report for the owner."
+          "tip": "Turn on the automatic invoice reminders in QuickBooks or Xero. They're built in and free, and a lot of contractors never switch them on. Then add a pay-by-text link, so the customer can pay from the driveway.",
+          "fix": "Automated: the invoice goes out the day the job is marked complete, reminders at 7, 14 and 30 days come from the accounting software, and a Friday money-owed report lands in the owner's inbox."
         },
         {
           "ask": "When a quote doesn't get a reply, does anyone follow up?",
           "label": "Quotes go quiet",
           "pains": [],
-          "tip": "Follow up on day 2, 5 and 10. Even calendar reminders win jobs back.",
-          "fix": "Automatic quote follow-ups and a weekly list of quotes going cold."
+          "tip": "Make the follow-up a question they can answer: \"Did the price land where you expected, or should we look at options?\" gets replies that \"just checking in\" never does.",
+          "fix": "Automated: follow-up texts and emails on day 2, 5 and 10 that stop once the quote is signed, plus a weekly list of quotes about to go cold. Jobber has this built in, and most field-service tools do."
+        },
+        {
+          "ask": "When everyone's out on jobs, who answers the phone?",
+          "label": "Missed calls on job days",
+          "pains": [],
+          "tip": "Call your own number at 2 pm on a weekday and hear what a customer gets. If it's voicemail, change the greeting to promise a text back within 15 minutes, and keep that promise.",
+          "fix": "Automated: missed-call text-back. Every missed call gets an instant text, and the reply becomes a lead with a callback task."
+        },
+        {
+          "ask": "When the crew does extra work on site, how does it end up on the invoice?",
+          "label": "Field extras not billed",
+          "pains": [],
+          "tip": "Price the common extras in the contract up front, so the crew can say yes on site without calling you, and require one photo of each extra.",
+          "fix": "Automated: a photo checklist for extras in the field app adds a line item to the invoice. The crew takes a photo, and nobody retypes it."
+        },
+        {
+          "ask": "How do you ask for reviews? Is it automatic, or when someone remembers?",
+          "label": "Reviews not asked for consistently",
+          "pains": [],
+          "tip": "Ask in person at the end of the job, then text the direct write-a-review link before you leave. Use the link that opens the review form, not your Google listing.",
+          "fix": "Automated: when the invoice is paid, the customer gets a review-request text with the direct link, and one reminder 3 days later."
         }
       ],
       "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",

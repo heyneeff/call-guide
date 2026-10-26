@@ -169,8 +169,8 @@
           "pains": [
             "pto-delays"
           ],
-          "tip": "List every installed system without PTO, with the date it was submitted. Call Xcel on the oldest three this week.",
-          "fix": "A job board with each job's stage and days in stage. Anything stuck at interconnection or PTO past the usual time gets flagged, with a weekly utility follow-up."
+          "tip": "Check every installed job without PTO in the utility's interconnection portal instead of calling. The stuck ones are usually waiting on something from you (a revised one-line, a missing signature) that nobody noticed was requested.",
+          "fix": "Automated: the job board tracks days in stage, and anything at interconnection or PTO past your normal time flags itself on Monday's list with a follow-up task. The customer gets an automatic \"still with Xcel, here's where it stands\" text so they stop calling."
         },
         {
           "ask": "I'd guess cash has been tighter this year, with final payments waiting on PTO. Fair?",
@@ -178,8 +178,8 @@
           "pains": [
             "missed-milestones"
           ],
-          "tip": "Write down every milestone payment you're owed (M1, M2, M3) and what's holding each one up.",
-          "fix": "A milestone tracker per job that shows what's owed, what it's waiting on, and the total cash out there. Reviewed every Friday."
+          "tip": "Compare each lender's milestone checklist to what you actually submit. Most M2 and M3 delays are a missing document (a photo angle, a signed completion certificate, the PTO letter), not a slow lender. Make that checklist the last step of the install, not an office task a week later.",
+          "fix": "Automated: each job carries its lender's milestone checklist. When install photos land and the stage moves, the milestone package is assembled and a submit-today task goes out. A Friday report shows cash outstanding by lender and what each payment is waiting on."
         },
         {
           "ask": "Does sales ever promise install dates the install side has to walk back?",
@@ -187,8 +187,8 @@
           "pains": [
             "sales-ops-gap"
           ],
-          "tip": "Have sales quote a range from your real average, like \"8 to 12 weeks to turn on.\"",
-          "fix": "Real signing-to-PTO times from the job board, updated monthly, that sales quotes from. Plus a handoff checklist from sales to ops."
+          "tip": "Give sales your real signing-to-PTO time from your last ten jobs, not the best case. When the customer hears \"ten to fourteen weeks, and here's why\" at signing, a delay later isn't a broken promise.",
+          "fix": "Automated: signing-to-PTO times calculated from the job board and refreshed monthly for sales to quote from. A required sales-to-ops handoff form (roof age, panel upgrade, HOA, site notes) must be complete before a deal counts as sold."
         },
         {
           "ask": "Which city gives you the most redlines on permits?",
@@ -196,8 +196,8 @@
           "pains": [
             "permit-delays"
           ],
-          "tip": "Keep a short list of what each city always kicks back, and check it before submitting.",
-          "fix": "A permit checklist per city built from past redlines, and permit status with days waiting on the job board. Use SolarAPP+ where the city allows it."
+          "tip": "Check which of your cities accept SolarAPP+. Colorado has been pushing jurisdictions onto it, and it turns a standard residential permit into an instant approval. For the cities that don't, keep each one's last five redlines and check against them before you submit.",
+          "fix": "Automated: a per-city permit checklist built from past redlines attaches itself to the job when the address is entered. Permit status and days waiting show on the job board, with a follow-up task when a city passes its usual turnaround."
         },
         {
           "ask": "Are service calls on older systems getting pushed behind new installs?",
@@ -205,8 +205,62 @@
           "pains": [
             "service-backlog"
           ],
-          "tip": "Block one fixed service day a week.",
-          "fix": "A service queue with its own intake, a set service day, and automatic customer updates, so repairs stop competing with installs."
+          "tip": "Price service as its own product, with a trip charge and a flat diagnostic fee. Once it pays for itself it stops being the thing that gets bumped, and owners whose installer went out of business will gladly pay it.",
+          "fix": "Automated: a service request form on the website feeds its own queue, and the customer gets an instant confirmation and a scheduling link. One fixed service day a week fills from that queue, and installs can't be booked over it."
+        },
+        {
+          "ask": "When one of your systems goes offline, who finds out first, you or the customer?",
+          "label": "Offline systems found by the customer",
+          "pains": [
+            "monitoring-ignored"
+          ],
+          "tip": "Turn on fleet alerts in Enphase's and SolarEdge's installer portals and send them to one shared inbox, not the installer's personal email. A system you catch offline is a service call. One the customer catches is a bad review.",
+          "fix": "Automated: monitoring alerts land in one inbox that opens a service ticket on its own, and the customer gets a text saying you've already seen it and are on it."
+        },
+        {
+          "ask": "When a proposal goes out and the customer goes quiet, what happens on day three?",
+          "label": "Proposals go quiet",
+          "pains": [
+            "no-proposal-followup"
+          ],
+          "tip": "Re-send it as a two-minute phone video of you walking through their roof layout and their actual savings. It gets a reply when a third email won't.",
+          "fix": "Automated: follow-ups on a schedule (a text on day 2, an email on day 5, a call task on day 10, a \"still interested?\" text on day 30) that stop the moment they sign. If the proposal tool tracks opens, a reopened proposal triggers a call task right away."
+        },
+        {
+          "ask": "How often does design find out something the site survey missed, like the main panel size?",
+          "label": "Survey misses things design needs",
+          "pains": [
+            "survey-design-handoff"
+          ],
+          "tip": "Have the surveyor shoot the same photos in the same order every time: main panel with the cover off, meter, every roof plane, attic rafters. Design stops calling the surveyor back when the photos already answer the question.",
+          "fix": "Automated: a site-survey checklist in CompanyCam with required photos. The job can't move to Design until it's complete, and design gets a notification with the link."
+        },
+        {
+          "ask": "How many jobs are waiting on something from the customer right now, like an HOA approval or a utility bill?",
+          "label": "Waiting on customer docs / HOA",
+          "pains": [
+            "customer-doc-delays"
+          ],
+          "tip": "File the HOA application yourself the day they sign, with your plan set attached. Customers sit on HOA forms for weeks because they don't know what to send.",
+          "fix": "Automated: a document checklist goes out at signing with e-signature and upload links, and the customer gets a reminder text every 3 days until it's done. Missing documents show on the job board."
+        },
+        {
+          "ask": "When you're all on installs, who answers the phone?",
+          "label": "Missed calls on install days",
+          "pains": [
+            "missed-calls"
+          ],
+          "tip": "Call your own number from a cell at 2 pm on a weekday and hear what a customer gets. If it's voicemail, change the greeting to promise a text back within 15 minutes, and keep that promise.",
+          "fix": "Automated: missed-call text-back. Every missed call gets an instant text asking what they need, and the reply becomes a lead or service ticket with a callback task. OpenPhone, Podium or the CRM's phone add-on does this for about the price of a phone line."
+        },
+        {
+          "ask": "Do you ask for reviews at PTO, when the customer is happiest, or does it depend on who remembers?",
+          "label": "Reviews not asked for consistently",
+          "pains": [
+            "no-review-requests"
+          ],
+          "tip": "Ask the day PTO comes through, with a screenshot of their first day of production. That's the moment they're proudest of the system. Text the direct write-a-review link, not your Google listing.",
+          "fix": "Automated: when the job hits PTO, the customer gets a congratulations text with the direct Google review link, and one reminder 3 days later."
         }
       ],
       "why": "Read their size first. Under 30 reviews: the owner does everything, so talk about their time. 30–150: owner plus one overloaded office person, your sweet spot. 150+: managers and software, so ask for operations. Ask one guess, then stop talking. If they say yes, tag it, give the free tip, and save the fix for the audit. If you're wrong: \"Oh, interesting, how do you handle that?\"",
@@ -392,6 +446,18 @@
     },
     "owner-admin": {
       "label": "Owner buried in admin"
+    },
+    "missed-calls": {
+      "label": "Missed calls while crews are on installs",
+      "tip": "change the voicemail greeting to promise a text back within 15 minutes, and keep the promise."
+    },
+    "monitoring-ignored": {
+      "label": "Offline systems found by the customer first",
+      "tip": "turn on fleet alerts in the Enphase and SolarEdge installer portals and send them to one shared inbox."
+    },
+    "no-review-requests": {
+      "label": "Reviews not asked for consistently",
+      "tip": "ask the day PTO comes through, with a screenshot of their first day of production, and text the direct review link."
     },
     "delayed-cash": {
       "label": "Stalled jobs delay cash flow",
